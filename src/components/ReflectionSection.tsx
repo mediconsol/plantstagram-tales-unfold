@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const ReflectionSection = () => {
   return (
     <section className="py-20 px-6 bg-gradient-forest">
@@ -28,9 +30,11 @@ export const ReflectionSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg shadow-natural hover:shadow-glow transition-all duration-300">
-              나의 하루 기록하기 ✨
-            </button>
+            <Link to="/create">
+              <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg shadow-natural hover:shadow-glow transition-all duration-300">
+                나의 하루 기록하기 ✨
+              </button>
+            </Link>
             <button className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg transition-all duration-300">
               친구들과 공유하기 🌿
             </button>

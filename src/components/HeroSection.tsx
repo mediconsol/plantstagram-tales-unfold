@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroForest from "@/assets/hero-forest.jpg";
 
 export const HeroSection = () => {
@@ -33,9 +34,11 @@ export const HeroSection = () => {
 
           {/* CTA */}
           <div className="pt-8">
-            <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg shadow-natural hover:shadow-glow transition-all duration-300 animate-float">
-              식물의 하루 구경하기 🌿
-            </button>
+            <Link to="/create">
+              <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg shadow-natural hover:shadow-glow transition-all duration-300 animate-float">
+                식물의 하루 구경하기 🌿
+              </button>
+            </Link>
           </div>
         </div>
       </div>
