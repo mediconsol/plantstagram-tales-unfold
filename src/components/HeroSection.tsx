@@ -20,20 +20,20 @@ export const HeroSection = () => {
           <div className="text-8xl animate-gentle-bounce">🌱</div>
           
           {/* Main Headline */}
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-semibold text-foreground leading-tight">
+          <h1 className="font-pretendard text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight">
             식물도 오늘 하루를<br />
             <span className="text-primary">남기고 싶었대요</span>
           </h1>
           
           {/* Subtitle */}
-          <p className="font-hand text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="font-pretendard text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             만약 식물이 SNS를 한다면,<br />
             어떤 순간들을 기록하고 싶을까요?
           </p>
 
           {/* CTA */}
           <div className="pt-8">
-            <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-hand font-medium px-8 py-4 rounded-full text-lg shadow-natural hover:shadow-glow transition-all duration-300 animate-float">
+            <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg shadow-natural hover:shadow-glow transition-all duration-300 animate-float">
               식물의 하루 구경하기 🌿
             </button>
           </div>

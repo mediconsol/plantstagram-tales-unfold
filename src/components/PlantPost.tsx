@@ -27,8 +27,8 @@ export const PlantPost = ({
           {profileEmoji}
         </div>
         <div className="flex-1">
-          <h3 className="font-hand font-medium text-foreground">{username}</h3>
-          <p className="text-sm text-muted-foreground font-hand">{timeAgo}</p>
+          <h3 className="font-pretendard font-medium text-foreground">{username}</h3>
+          <p className="text-sm text-muted-foreground font-pretendard">{timeAgo}</p>
         </div>
       </div>
 
@@ -56,17 +56,17 @@ export const PlantPost = ({
         </div>
 
         {/* Likes */}
-        <p className="font-hand font-medium text-foreground">좋아요 {likes.toLocaleString()}개</p>
+        <p className="font-pretendard font-medium text-foreground">좋아요 {likes.toLocaleString()}개</p>
 
         {/* Caption */}
         <div className="space-y-2">
           <p className="text-foreground">
-            <span className="font-hand font-medium">{username}</span>{" "}
-            <span className="font-hand">{caption}</span>
+            <span className="font-pretendard font-medium">{username}</span>{" "}
+            <span className="font-pretendard">{caption}</span>
           </p>
           <div className="flex flex-wrap gap-1">
             {hashtags.map((tag, index) => (
-              <span key={index} className="text-primary font-hand text-sm">
+              <span key={index} className="text-primary font-pretendard text-sm">
                 #{tag}
               </span>
             ))}

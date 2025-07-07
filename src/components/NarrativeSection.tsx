@@ -53,10 +53,10 @@ export const NarrativeSection = () => {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl font-semibold text-foreground mb-6">
+          <h2 className="font-pretendard text-3xl md:text-4xl font-bold text-foreground mb-6">
             오늘의 식물 피드 🌿
           </h2>
-          <p className="font-hand text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="font-pretendard text-lg text-muted-foreground max-w-2xl mx-auto">
             식물들이 오늘 하루 어떤 순간들을 기록했는지 함께 보아요
           </p>
         </div>
