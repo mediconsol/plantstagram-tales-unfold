@@ -3,6 +3,7 @@ import { Heart, MessageCircle, Share, MoreHorizontal } from "lucide-react";
 import { PlantPost as PlantPostType } from "@/types/database";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToggleLike, useLikesCount, useComments } from "@/hooks/usePlantPosts";
+import { CommentSection } from "./CommentSection";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { formatDistanceToNow } from "date-fns";
@@ -15,6 +16,7 @@ interface PlantPostProps {
 export const PlantPost = ({ post }: PlantPostProps) => {
   const { user } = useAuth();
   const [showComments, setShowComments] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const { data: likesData } = useLikesCount(post.id);
   const { data: commentsData } = useComments(post.id);
@@ -30,6 +32,7 @@ export const PlantPost = ({ post }: PlantPostProps) => {
 
   const handleLike = () => {
     if (!user) return;
+    setIsLiked(!isLiked); // Optimistic update
     toggleLikeMutation.mutate({ postId: post.id });
   };
 
@@ -83,9 +86,13 @@ export const PlantPost = ({ post }: PlantPostProps) => {
             size="sm"
             onClick={handleLike}
             disabled={!user || toggleLikeMutation.isPending}
-            className="flex items-center gap-2 text-muted-foreground hover:text-red-500 transition-colors p-0"
+            className={`flex items-center gap-2 transition-colors p-0 ${
+              isLiked
+                ? 'text-red-500 hover:text-red-600'
+                : 'text-muted-foreground hover:text-red-500'
+            }`}
           >
-            <Heart className="w-6 h-6" />
+            <Heart className={`w-6 h-6 ${isLiked ? 'fill-current' : ''}`} />
           </Button>
           <Button
             variant="ghost"
@@ -93,7 +100,7 @@ export const PlantPost = ({ post }: PlantPostProps) => {
             onClick={() => setShowComments(!showComments)}
             className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors p-0"
           >
-            <MessageCircle className="w-6 h-6" />
+            <MessageCircle className={`w-6 h-6 ${showComments ? 'fill-current text-primary' : ''}`} />
           </Button>
           <Button
             variant="ghost"
@@ -143,17 +150,12 @@ export const PlantPost = ({ post }: PlantPostProps) => {
           )}
         </div>
 
-        {/* Comments Count */}
-        {commentsCount > 0 && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowComments(!showComments)}
-            className="text-muted-foreground hover:text-foreground p-0 h-auto font-pretendard text-sm"
-          >
-            댓글 {commentsCount}개 모두 보기
-          </Button>
-        )}
+        {/* Comments Section */}
+        <CommentSection
+          postId={post.id}
+          isOpen={showComments}
+          onToggle={() => setShowComments(!showComments)}
+        />
       </div>
     </div>
   );

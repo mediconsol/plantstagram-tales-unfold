@@ -48,6 +48,10 @@ export interface Comment {
   profiles?: Profile
 }
 
+export interface CommentWithProfile extends Comment {
+  profiles: Profile
+}
+
 export interface Follow {
   id: string
   follower_id: string
