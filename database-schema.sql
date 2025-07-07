@@ -153,3 +153,30 @@ CREATE TRIGGER handle_updated_at BEFORE UPDATE ON public.plant_posts
 
 CREATE TRIGGER handle_updated_at BEFORE UPDATE ON public.comments
     FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
+
+-- Create storage bucket for plant images
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('plant-images', 'plant-images', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Create storage policies for plant images
+CREATE POLICY "Anyone can view plant images" ON storage.objects
+    FOR SELECT USING (bucket_id = 'plant-images');
+
+CREATE POLICY "Authenticated users can upload plant images" ON storage.objects
+    FOR INSERT WITH CHECK (
+        bucket_id = 'plant-images'
+        AND auth.role() = 'authenticated'
+    );
+
+CREATE POLICY "Users can update their own plant images" ON storage.objects
+    FOR UPDATE USING (
+        bucket_id = 'plant-images'
+        AND auth.uid()::text = (storage.foldername(name))[1]
+    );
+
+CREATE POLICY "Users can delete their own plant images" ON storage.objects
+    FOR DELETE USING (
+        bucket_id = 'plant-images'
+        AND auth.uid()::text = (storage.foldername(name))[1]
+    );
