@@ -4,6 +4,8 @@
 
 **URL**: https://lovable.dev/projects/20b1b721-1e66-46fb-aad9-a99240006581
 
+**계정: health****@gmail.com
+
 ## How can I edit this code?
 
 There are several ways of editing your application.
