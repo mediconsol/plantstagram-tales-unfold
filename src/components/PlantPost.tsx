@@ -7,6 +7,7 @@ import { getPlantTypeByName } from "@/data/plantTypes";
 import { CommentSection } from "./CommentSection";
 import { ShareModal } from "./ShareModal";
 import { EditPostModal } from "./EditPostModal";
+import { AICommentTrigger } from "./AICommentTrigger";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -223,6 +224,11 @@ export const PlantPost = ({ post }: PlantPostProps) => {
               📍 {post.location}
             </p>
           )}
+        </div>
+
+        {/* AI Comment Trigger (for testing) */}
+        <div className="flex justify-center">
+          <AICommentTrigger post={post} />
         </div>
 
         {/* Comments Section */}

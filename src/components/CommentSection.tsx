@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useComments, useCreateComment } from '@/hooks/usePlantPosts'
 import { Comment } from '@/types/database'
+import { AI_PLANT_PERSONA_ID } from '@/lib/aiPlantPersona'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
-import { Loader2, Send, MessageCircle } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { Loader2, Send, MessageCircle, Sparkles } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
@@ -159,15 +161,23 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
     locale: ko,
   })
 
+  const isAIComment = comment.user_id === AI_PLANT_PERSONA_ID
+
   return (
-    <div className="flex gap-3 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+    <div className={`flex gap-3 p-3 rounded-lg transition-colors ${
+      isAIComment
+        ? 'bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 hover:from-green-100 hover:to-emerald-100'
+        : 'bg-muted/30 hover:bg-muted/50'
+    }`}>
       <Avatar className="w-8 h-8 flex-shrink-0">
         <AvatarImage
           src={comment.profiles?.avatar_url}
           alt={comment.profiles?.username || 'User'}
         />
-        <AvatarFallback className="text-xs bg-gradient-earth text-white">
-          {comment.profiles?.username?.[0]?.toUpperCase() || 'U'}
+        <AvatarFallback className={`text-xs text-white ${
+          isAIComment ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 'bg-gradient-earth'
+        }`}>
+          {isAIComment ? '🧚‍♀️' : comment.profiles?.username?.[0]?.toUpperCase() || 'U'}
         </AvatarFallback>
       </Avatar>
       <div className="flex-1 space-y-1">
@@ -175,11 +185,19 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
           <span className="font-pretendard font-medium text-sm text-foreground">
             {comment.profiles?.username || '익명 사용자'}
           </span>
+          {isAIComment && (
+            <Badge variant="secondary" className="text-xs bg-green-100 text-green-700 border-green-300">
+              <Sparkles className="w-3 h-3 mr-1" />
+              식물 요정
+            </Badge>
+          )}
           <span className="text-xs text-muted-foreground">
             {timeAgo}
           </span>
         </div>
-        <p className="font-pretendard text-sm text-foreground leading-relaxed">
+        <p className={`font-pretendard text-sm leading-relaxed ${
+          isAIComment ? 'text-green-800' : 'text-foreground'
+        }`}>
           {comment.content}
         </p>
       </div>

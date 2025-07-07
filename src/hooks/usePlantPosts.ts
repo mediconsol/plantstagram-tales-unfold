@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { plantPostsApi, likesApi, commentsApi } from '@/lib/api'
 import { PlantPost, Comment } from '@/types/database'
 import { useAuth } from '@/contexts/AuthContext'
+import { createAIComment } from '@/lib/aiPlantPersona'
 
 // Query keys
 export const QUERY_KEYS = {
@@ -35,9 +36,25 @@ export const useCreatePlantPost = () => {
 
   return useMutation({
     mutationFn: plantPostsApi.create,
-    onSuccess: () => {
+    onSuccess: async (response) => {
       // Invalidate and refetch plant posts
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PLANT_POSTS] })
+
+      // Create AI comment after successful post creation
+      if (response.data) {
+        try {
+          // Wait a bit for the post to be fully created
+          setTimeout(async () => {
+            await createAIComment(response.data!)
+            // Invalidate comments for this post to show the new AI comment
+            queryClient.invalidateQueries({
+              queryKey: [QUERY_KEYS.COMMENTS, response.data!.id]
+            })
+          }, 2000) // 2 second delay for natural feel
+        } catch (error) {
+          console.error('Error creating AI comment:', error)
+        }
+      }
     },
   })
 }
