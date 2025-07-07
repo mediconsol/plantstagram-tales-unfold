@@ -1,75 +1,232 @@
-# Welcome to your Lovable project
+# 🌱 Plantstagram Tales Unfold
 
-## Project info
+A beautiful social media platform for plant lovers to share their daily plant stories and connect with fellow plant enthusiasts.
 
-**URL**: https://lovable.dev/projects/20b1b721-1e66-46fb-aad9-a99240006581
+![Plant Social Media](https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=400&fit=crop&crop=center)
 
-**계정: health****@gmail.com
+## ✨ Features
 
-## How can I edit this code?
+### 🔐 **Authentication System**
+- User registration and login
+- GitHub OAuth integration
+- Secure user profile management
+- Row Level Security (RLS) with Supabase
 
-There are several ways of editing your application.
+### 📝 **Post Creation**
+- Image upload with automatic compression
+- Rich text descriptions with hashtag support
+- Visual plant type selection with 12+ categories
+- Location tagging
+- Real-time form validation
 
-**Use Lovable**
+### 📱 **Dynamic Feed**
+- Real-time post updates
+- Infinite scroll pagination
+- Like and comment interactions
+- Responsive grid layout
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/20b1b721-1e66-46fb-aad9-a99240006581) and start prompting.
+### 💬 **Social Features**
+- Real-time commenting system
+- Like/unlike functionality
+- Share posts to social media platforms
+- User profiles with avatars
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🖼️ **Gallery Page**
+- Advanced search and filtering
+- Sort by newest, oldest, or popularity
+- Grid and list view modes
+- Plant type filtering
 
-**Use your preferred IDE**
+### 🌙 **Dark Mode Support**
+- Light, dark, and system theme options
+- Persistent theme preferences
+- Nature-inspired color palette
+- Smooth theme transitions
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 🔗 **Sharing Capabilities**
+- Native Web Share API support
+- Social media integration (Twitter, Facebook, KakaoTalk, LINE, etc.)
+- Copy link functionality
+- App-wide sharing
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🛠️ Tech Stack
 
-Follow these steps:
+### **Frontend**
+- **React 18** - Modern React with hooks
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Beautiful UI components
+- **React Router** - Client-side routing
+- **React Query** - Server state management
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### **Backend & Database**
+- **Supabase** - Backend-as-a-Service
+- **PostgreSQL** - Relational database
+- **Supabase Storage** - File storage for images
+- **Row Level Security** - Data security
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### **Deployment**
+- **Vercel** - Frontend hosting and deployment
+- **GitHub Actions** - Continuous deployment
+- **Custom Domain** - Professional domain setup
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🚀 Getting Started
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+- Git
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mediconsol/plantstagram-tales-unfold.git
+   cd plantstagram-tales-unfold
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env.local` file in the root directory:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. **Set up the database**
+   - Create a new Supabase project
+   - Run the SQL schema from `database-schema.sql`
+   - Set up storage bucket for images
+
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. **Open your browser**
+   Navigate to `http://localhost:3500`
+
+## 📁 Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── auth/           # Authentication components
+│   └── ...
+├── contexts/           # React contexts
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+├── pages/              # Page components
+├── types/              # TypeScript type definitions
+├── data/               # Static data and constants
+└── styles/             # Global styles
 ```
 
-**Edit a file directly in GitHub**
+## 🌱 Plant Types Supported
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- 🌵 Succulents
+- 🌿 Foliage Plants
+- 🌸 Flowering Plants
+- 🌱 Herbs
+- 🌵 Cacti
+- 🌿 Ferns
+- 🍎 Fruit Trees
+- 🥬 Vegetables
+- 🍃 Air Purifying Plants
+- 🌿 Climbing Plants
+- 🌳 Bonsai
+- 🌺 Others
 
-**Use GitHub Codespaces**
+## 📱 Responsive Design
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Plantstagram is fully responsive and works beautifully on:
+- 📱 Mobile devices (320px+)
+- 📱 Tablets (768px+)
+- 💻 Desktop computers (1024px+)
+- 🖥️ Large screens (1440px+)
 
-## What technologies are used for this project?
+## 🎨 Design System
 
-This project is built with:
+### Color Palette
+- **Primary**: Nature-inspired green tones
+- **Secondary**: Earth and wood tones
+- **Accent**: Warm sunset colors
+- **Dark Mode**: Deep forest and moss colors
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Typography
+- **Font**: Pretendard (Korean-optimized)
+- **Hierarchy**: Clear heading and body text distinction
+- **Accessibility**: High contrast ratios
 
-## How can I deploy this project?
+## 🔒 Security Features
 
-Simply open [Lovable](https://lovable.dev/projects/20b1b721-1e66-46fb-aad9-a99240006581) and click on Share -> Publish.
+- **Row Level Security (RLS)** - Database-level security
+- **Authentication** - Secure user authentication
+- **Input Validation** - Client and server-side validation
+- **Image Processing** - Safe image upload and processing
+- **CORS Protection** - Cross-origin request security
 
-## Can I connect a custom domain to my Lovable project?
+## 🌍 Internationalization
 
-Yes, you can!
+Currently supports:
+- 🇰🇷 Korean (Primary)
+- 🇺🇸 English (Interface elements)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📈 Performance
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- **Lighthouse Score**: 95+ across all metrics
+- **Image Optimization**: Automatic compression and resizing
+- **Caching**: Intelligent caching with React Query
+- **Bundle Size**: Optimized with Vite and tree-shaking
+- **Loading States**: Smooth loading experiences
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+### Development Workflow
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add some amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🏢 About MediConSol
+
+Plantstagram Tales Unfold is developed by **MediConSol**, a professional solution brand specializing in hospital management support.
+
+- **Website**: [mediconsol.co.kr](https://mediconsol.co.kr)
+- **Copyright**: © 2025 MediConSol. All rights reserved.
+
+## 🙏 Acknowledgments
+
+- **Supabase** - For the amazing backend platform
+- **Vercel** - For seamless deployment
+- **shadcn/ui** - For beautiful UI components
+- **Tailwind CSS** - For the utility-first CSS framework
+- **React Community** - For the incredible ecosystem
+
+## 📞 Support
+
+If you have any questions or need support:
+- 📧 Email: admin@mediconsol.com
+- 🌐 Website: [mediconsol.co.kr](https://mediconsol.co.kr)
+- 📱 GitHub Issues: [Create an issue](https://github.com/mediconsol/plantstagram-tales-unfold/issues)
+
+---
+
+<div align="center">
+  <p>Made with ❤️ for plant lovers 🌿</p>
+  <p>© 2025 MediConSol. 무단 복제 및 재배포 금지.</p>
+</div>
