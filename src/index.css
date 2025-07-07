@@ -2,41 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Plantstagram Design System - 식물도 피드를 올린다 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Nature-inspired color palette */
+    --background: 45 40% 96%;
+    --foreground: 150 30% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 150 25% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 150 25% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Sage green primary */
+    --primary: 140 25% 40%;
+    --primary-foreground: 45 60% 98%;
+    --primary-soft: 140 35% 85%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Warm cream secondary */
+    --secondary: 45 60% 94%;
+    --secondary-foreground: 150 25% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Soft moss muted */
+    --muted: 120 20% 88%;
+    --muted-foreground: 150 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Earthy brown accent */
+    --accent: 30 25% 75%;
+    --accent-foreground: 150 25% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 60% 55%;
+    --destructive-foreground: 45 60% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 120 25% 85%;
+    --input: 120 25% 85%;
+    --ring: 140 25% 40%;
 
-    --radius: 0.5rem;
+    /* Natural gradients */
+    --gradient-sunrise: linear-gradient(135deg, hsl(45 80% 90%), hsl(35 70% 85%), hsl(140 40% 88%));
+    --gradient-forest: linear-gradient(180deg, hsl(140 30% 85%), hsl(120 25% 80%));
+    --gradient-earth: linear-gradient(45deg, hsl(30 40% 80%), hsl(45 50% 88%));
+    
+    /* Soft shadows */
+    --shadow-natural: 0 4px 20px hsl(140 25% 40% / 0.08);
+    --shadow-card: 0 2px 12px hsl(140 20% 30% / 0.06);
+    --shadow-glow: 0 0 30px hsl(45 60% 80% / 0.4);
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
