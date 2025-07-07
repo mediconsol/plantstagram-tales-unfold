@@ -73,6 +73,12 @@ export const Header: React.FC = () => {
             >
               홈
             </Link>
+            <Link
+              to="/gallery"
+              className="font-pretendard text-foreground hover:text-primary transition-colors"
+            >
+              갤러리
+            </Link>
             {user && (
               <Link
                 to="/create"
