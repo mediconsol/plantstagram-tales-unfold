@@ -2,17 +2,55 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { AuthModal } from '@/components/auth/AuthModal'
+import { shareNative, copyToClipboard, createAppShareOptions, isWebShareSupported } from '@/lib/share'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { User, LogOut, Settings, Plus } from 'lucide-react'
+import { User, LogOut, Settings, Plus, Share } from 'lucide-react'
+import { useToast } from '@/hooks/use-toast'
 
 export const Header: React.FC = () => {
   const { user, signOut, loading } = useAuth()
+  const { toast } = useToast()
   const [showAuthModal, setShowAuthModal] = useState(false)
 
   const handleSignOut = async () => {
     await signOut()
+  }
+
+  const handleAppShare = async () => {
+    const shareOptions = createAppShareOptions()
+
+    if (isWebShareSupported()) {
+      try {
+        await shareNative(shareOptions)
+        toast({
+          title: "공유 완료",
+          description: "앱이 성공적으로 공유되었습니다!",
+        })
+      } catch (error) {
+        // Native share cancelled or failed, fallback to copy
+        handleCopyAppLink(shareOptions.url)
+      }
+    } else {
+      handleCopyAppLink(shareOptions.url)
+    }
+  }
+
+  const handleCopyAppLink = async (url: string) => {
+    const success = await copyToClipboard(url)
+    if (success) {
+      toast({
+        title: "링크 복사 완료",
+        description: "Plantstagram 링크가 클립보드에 복사되었습니다!",
+      })
+    } else {
+      toast({
+        title: "복사 실패",
+        description: "링크 복사에 실패했습니다. 다시 시도해주세요.",
+        variant: "destructive"
+      })
+    }
   }
 
   return (
@@ -29,20 +67,29 @@ export const Header: React.FC = () => {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="font-pretendard text-foreground hover:text-primary transition-colors"
             >
               홈
             </Link>
             {user && (
-              <Link 
-                to="/create" 
+              <Link
+                to="/create"
                 className="font-pretendard text-foreground hover:text-primary transition-colors"
               >
                 포스트 작성
               </Link>
             )}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleAppShare}
+              className="font-pretendard text-foreground hover:text-primary transition-colors"
+            >
+              <Share className="w-4 h-4 mr-2" />
+              공유
+            </Button>
           </nav>
 
           {/* Auth Section */}

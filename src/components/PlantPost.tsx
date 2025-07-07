@@ -4,6 +4,7 @@ import { PlantPost as PlantPostType } from "@/types/database";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToggleLike, useLikesCount, useComments } from "@/hooks/usePlantPosts";
 import { CommentSection } from "./CommentSection";
+import { ShareModal } from "./ShareModal";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { formatDistanceToNow } from "date-fns";
@@ -16,6 +17,7 @@ interface PlantPostProps {
 export const PlantPost = ({ post }: PlantPostProps) => {
   const { user } = useAuth();
   const [showComments, setShowComments] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
   const { data: likesData } = useLikesCount(post.id);
@@ -105,6 +107,7 @@ export const PlantPost = ({ post }: PlantPostProps) => {
           <Button
             variant="ghost"
             size="sm"
+            onClick={() => setShowShareModal(true)}
             className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors p-0"
           >
             <Share className="w-6 h-6" />
@@ -157,6 +160,13 @@ export const PlantPost = ({ post }: PlantPostProps) => {
           onToggle={() => setShowComments(!showComments)}
         />
       </div>
+
+      {/* Share Modal */}
+      <ShareModal
+        post={post}
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+      />
     </div>
   );
 };
