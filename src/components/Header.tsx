@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { AuthModal } from '@/components/auth/AuthModal'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import { shareNative, copyToClipboard, createAppShareOptions, isWebShareSupported } from '@/lib/share'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -96,10 +97,16 @@ export const Header: React.FC = () => {
               <Share className="w-4 h-4 mr-2" />
               공유
             </Button>
+            <ThemeToggle />
           </nav>
 
           {/* Auth Section */}
           <div className="flex items-center space-x-4">
+            {/* Mobile Theme Toggle */}
+            <div className="md:hidden">
+              <ThemeToggle />
+            </div>
+
             {loading ? (
               <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
             ) : user ? (
