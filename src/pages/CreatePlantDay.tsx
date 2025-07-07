@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCreatePlantPost } from "@/hooks/usePlantPosts";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { ImageUpload } from "@/components/ImageUpload";
 import { PlantTypeSelector } from "@/components/PlantTypeSelector";
 import { Button } from "@/components/ui/button";
@@ -97,10 +98,10 @@ export default function CreatePlantDay() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
-      <div className="container mx-auto px-4 py-8 pt-20">
+      <div className="container mx-auto px-4 py-8 pt-20 flex-1">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <Link to="/">
@@ -255,6 +256,8 @@ export default function CreatePlantDay() {
         </form>
 
       </div>
+
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import { usePlantPosts, useLikesCount, useComments } from '@/hooks/usePlantPosts'
 import { PlantPost } from '@/types/database'
 import { plantTypes, getPlantTypeByName } from '@/data/plantTypes'
@@ -69,22 +70,23 @@ const Gallery: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background flex flex-col">
         <Header />
-        <div className="container mx-auto px-4 py-8 pt-20">
+        <div className="container mx-auto px-4 py-8 pt-20 flex-1">
           <div className="flex items-center justify-center py-12">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
         </div>
+        <Footer />
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background flex flex-col">
         <Header />
-        <div className="container mx-auto px-4 py-8 pt-20">
+        <div className="container mx-auto px-4 py-8 pt-20 flex-1">
           <div className="text-center py-12">
             <p className="text-muted-foreground mb-4">
               갤러리를 불러오는 중 오류가 발생했습니다.
@@ -94,15 +96,16 @@ const Gallery: React.FC = () => {
             </Button>
           </div>
         </div>
+        <Footer />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      
-      <div className="container mx-auto px-4 py-8 pt-20">
+
+      <div className="container mx-auto px-4 py-8 pt-20 flex-1">
         {/* Page Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-pretendard font-bold text-foreground mb-4">
@@ -218,6 +221,8 @@ const Gallery: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
