@@ -5,18 +5,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useCreatePlantPost } from "@/hooks/usePlantPosts";
 import { Header } from "@/components/Header";
 import { ImageUpload } from "@/components/ImageUpload";
+import { PlantTypeSelector } from "@/components/PlantTypeSelector";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-
-// Plant types for selection
-const plantTypes = [
-  "다육식물", "관엽식물", "꽃식물", "허브", "선인장", "양치식물", "과일나무", "채소", "기타"
-];
 
 interface PostFormData {
   title: string
@@ -206,22 +201,11 @@ export default function CreatePlantDay() {
               <CardTitle className="font-pretendard">식물 종류 (선택사항)</CardTitle>
             </CardHeader>
             <CardContent>
-              <Select
-                value={formData.plant_type}
-                onValueChange={(value) => handleInputChange('plant_type', value)}
+              <PlantTypeSelector
+                selectedType={formData.plant_type}
+                onTypeSelect={(type) => handleInputChange('plant_type', type)}
                 disabled={isSubmitting}
-              >
-                <SelectTrigger className="font-pretendard">
-                  <SelectValue placeholder="식물 종류를 선택하세요" />
-                </SelectTrigger>
-                <SelectContent>
-                  {plantTypes.map((type) => (
-                    <SelectItem key={type} value={type} className="font-pretendard">
-                      {type}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              />
             </CardContent>
           </Card>
 

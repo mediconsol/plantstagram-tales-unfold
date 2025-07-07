@@ -3,6 +3,7 @@ import { Heart, MessageCircle, Share, MoreHorizontal } from "lucide-react";
 import { PlantPost as PlantPostType } from "@/types/database";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToggleLike, useLikesCount, useComments } from "@/hooks/usePlantPosts";
+import { getPlantTypeByName } from "@/data/plantTypes";
 import { CommentSection } from "./CommentSection";
 import { ShareModal } from "./ShareModal";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -143,7 +144,7 @@ export const PlantPost = ({ post }: PlantPostProps) => {
           )}
           {post.plant_type && (
             <p className="text-xs text-muted-foreground">
-              🌿 {post.plant_type}
+              {getPlantTypeByName(post.plant_type)?.emoji || '🌿'} {post.plant_type}
             </p>
           )}
           {post.location && (

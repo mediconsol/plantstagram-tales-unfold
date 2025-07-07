@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Header } from '@/components/Header'
 import { usePlantPosts, useLikesCount, useComments } from '@/hooks/usePlantPosts'
 import { PlantPost } from '@/types/database'
+import { plantTypes, getPlantTypeByName } from '@/data/plantTypes'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -58,8 +59,8 @@ const Gallery: React.FC = () => {
     return filtered
   }, [posts, searchTerm, filterBy, sortBy])
 
-  // Get unique plant types for filter
-  const plantTypes = React.useMemo(() => {
+  // Get unique plant types for filter from actual posts
+  const availablePlantTypes = React.useMemo(() => {
     const types = posts
       .map(post => post.plant_type)
       .filter((type): type is string => Boolean(type))
@@ -134,11 +135,17 @@ const Gallery: React.FC = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all" className="font-pretendard">모든 식물</SelectItem>
-              {plantTypes.map((type) => (
-                <SelectItem key={type} value={type} className="font-pretendard">
-                  {type}
-                </SelectItem>
-              ))}
+              {availablePlantTypes.map((type) => {
+                const plantTypeData = getPlantTypeByName(type)
+                return (
+                  <SelectItem key={type} value={type} className="font-pretendard">
+                    <div className="flex items-center gap-2">
+                      <span>{plantTypeData?.emoji || '🌱'}</span>
+                      <span>{type}</span>
+                    </div>
+                  </SelectItem>
+                )
+              })}
             </SelectContent>
           </Select>
 
@@ -270,6 +277,7 @@ const GalleryGridItem: React.FC<{ post: PlantPost }> = ({ post }) => {
         
         {post.plant_type && (
           <Badge variant="secondary" className="mb-2 text-xs">
+            <span className="mr-1">{getPlantTypeByName(post.plant_type)?.emoji || '🌱'}</span>
             {post.plant_type}
           </Badge>
         )}
@@ -350,6 +358,7 @@ const GalleryListItem: React.FC<{ post: PlantPost }> = ({ post }) => {
                 <>
                   <span className="text-xs text-muted-foreground">•</span>
                   <Badge variant="secondary" className="text-xs">
+                    <span className="mr-1">{getPlantTypeByName(post.plant_type)?.emoji || '🌱'}</span>
                     {post.plant_type}
                   </Badge>
                 </>
