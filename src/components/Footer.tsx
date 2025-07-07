@@ -70,13 +70,13 @@ export const Footer: React.FC = () => {
                 병원 경영지원을 위한 전문 솔루션 브랜드입니다.
               </p>
               <div className="pt-2">
-                <a 
-                  href="https://mediconsol.com" 
-                  target="_blank" 
+                <a
+                  href="https://mediconsol.co.kr"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-primary hover:text-primary/80 transition-colors font-pretendard"
                 >
-                  mediconsol.com →
+                  mediconsol.co.kr →
                 </a>
               </div>
             </div>
