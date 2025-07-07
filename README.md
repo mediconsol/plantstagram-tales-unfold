@@ -1,3 +1,4 @@
+
 # 🌱 Plantstagram Tales Unfold
 
 A beautiful social media platform for plant lovers to share their daily plant stories and connect with fellow plant enthusiasts.
@@ -152,6 +153,7 @@ Plantstagram is fully responsive and works beautifully on:
 - 🖥️ Large screens (1440px+)
 
 ## 🎨 Design System
+
 
 ### Color Palette
 - **Primary**: Nature-inspired green tones
