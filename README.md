@@ -1,5 +1,5 @@
 
-# 🌱 Plantstagram Tales Unfold
+# 🌱 Plantgram Tales Unfold
 
 A beautiful social media platform for plant lovers to share their daily plant stories and connect with fellow plant enthusiasts.
 
@@ -146,7 +146,7 @@ src/
 
 ## 📱 Responsive Design
 
-Plantstagram is fully responsive and works beautifully on:
+Plantgram is fully responsive and works beautifully on:
 - 📱 Mobile devices (320px+)
 - 📱 Tablets (768px+)
 - 💻 Desktop computers (1024px+)
@@ -206,7 +206,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🏢 About MediConSol
 
-Plantstagram Tales Unfold is developed by **MediConSol**, a professional solution brand specializing in hospital management support.
+Plantgram Tales Unfold is developed by **MediConSol**, a professional solution brand specializing in hospital management support.
 
 - **Website**: [mediconsol.co.kr](https://mediconsol.co.kr)
 - **Copyright**: © 2025 MediConSol. All rights reserved.

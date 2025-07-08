@@ -44,7 +44,7 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
       await shareNative(shareOptions)
       toast({
         title: "공유 완료",
-        description: "Plantstagram이 성공적으로 공유되었습니다!",
+        description: "Plantgram이 성공적으로 공유되었습니다!",
       })
       onClose()
     } catch (error) {
@@ -59,7 +59,7 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
       setCopied(true)
       toast({
         title: "링크 복사 완료",
-        description: "Plantstagram 링크가 클립보드에 복사되었습니다!",
+        description: "Plantgram 링크가 클립보드에 복사되었습니다!",
       })
       
       setTimeout(() => setCopied(false), 2000)
@@ -171,10 +171,10 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
         <DialogHeader>
           <DialogTitle className="font-pretendard flex items-center gap-2">
             <Share className="w-5 h-5" />
-            Plantstagram 공유하기
+            Plantgram 공유하기
           </DialogTitle>
           <DialogDescription className="font-pretendard">
-            친구들과 함께 Plantstagram을 즐겨보세요.
+            친구들과 함께 Plantgram을 즐겨보세요.
           </DialogDescription>
         </DialogHeader>
 
@@ -183,7 +183,7 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
           <div className="text-center space-y-4 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200">
             <div className="text-4xl">🌱</div>
             <div>
-              <h3 className="font-semibold font-pretendard text-lg">Plantstagram Tales Unfold</h3>
+              <h3 className="font-semibold font-pretendard text-lg">Plantgram Tales Unfold</h3>
               <p className="text-sm text-muted-foreground font-pretendard mt-1">
                 식물들의 일상을 공유하는 특별한 공간
               </p>

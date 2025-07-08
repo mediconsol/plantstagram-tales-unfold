@@ -47,9 +47,9 @@ export const ShareProfileModal: React.FC<ShareProfileModalProps> = ({
   }
 
   const profileUrl = `${window.location.origin}/profile`
-  const shareText = `${userInfo.fullName}님의 Plantstagram 프로필을 확인해보세요! 🌱`
+  const shareText = `${userInfo.fullName}님의 Plantgram 프로필을 확인해보세요! 🌱`
   const shareData = {
-    title: `${userInfo.fullName} - Plantstagram`,
+    title: `${userInfo.fullName} - Plantgram`,
     text: shareText,
     url: profileUrl
   }

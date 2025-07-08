@@ -138,7 +138,7 @@ export const MobileMenu: React.FC = () => {
               <span className="text-2xl">🌱</span>
               <div>
                 <SheetTitle className="font-pretendard text-lg">
-                  Plantstagram
+                  Plantgram
                 </SheetTitle>
                 <SheetDescription className="font-pretendard text-sm">
                   식물들의 이야기

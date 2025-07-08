@@ -54,7 +54,7 @@ export const Header: React.FC = () => {
     if (success) {
       toast({
         title: "링크 복사 완료",
-        description: "Plantstagram 링크가 클립보드에 복사되었습니다!",
+        description: "Plantgram 링크가 클립보드에 복사되었습니다!",
       })
     } else {
       toast({
@@ -75,7 +75,7 @@ export const Header: React.FC = () => {
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-2xl">🌱</span>
             <span className="font-pretendard font-bold text-xl text-foreground">
-              Plantstagram
+              Plantgram
             </span>
           </Link>
 
