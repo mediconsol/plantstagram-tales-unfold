@@ -1,6 +1,7 @@
 import { PlantPost } from '@/types/database'
 import { commentsApi } from './api'
 import { generateOpenAIComment, isOpenAIConfigured } from './openai'
+import { supabase } from './supabase'
 
 // AI Plant Persona User ID (matches database)
 export const AI_PLANT_PERSONA_ID = '00000000-0000-0000-0000-000000000001'
@@ -111,8 +112,25 @@ export const generateTemplateResponse = (post: PlantPost): string => {
 // Create AI comment for a post
 export const createAIComment = async (post: PlantPost): Promise<boolean> => {
   try {
+    console.log('Creating AI comment for post:', post.id)
+
     // Generate AI response (now async)
     const aiResponse = await generateAIResponse(post)
+    console.log('Generated AI response:', aiResponse)
+
+    // Check if AI user exists first
+    const aiUserExists = await checkAIUserExists()
+    if (!aiUserExists) {
+      console.error('AI user does not exist in database and could not be created')
+      return false
+    }
+
+    // Check if AI has already commented on this post
+    const alreadyCommented = await hasAICommented(post.id)
+    if (alreadyCommented) {
+      console.log('AI has already commented on this post')
+      return true // Return true since comment already exists
+    }
 
     // Create comment
     const result = await commentsApi.create({
@@ -121,9 +139,71 @@ export const createAIComment = async (post: PlantPost): Promise<boolean> => {
       content: aiResponse
     })
 
-    return result.error === null
+    console.log('Comment creation result:', result)
+
+    if (result.error) {
+      console.error('Comment creation error:', result.error)
+      return false
+    }
+
+    return true
   } catch (error) {
     console.error('Error creating AI comment:', error)
+    return false
+  }
+}
+
+// Check if AI user exists in the database
+const checkAIUserExists = async (): Promise<boolean> => {
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('id', AI_PLANT_PERSONA_ID)
+      .single()
+
+    if (error && error.code === 'PGRST116') {
+      // User doesn't exist, try to create it
+      console.log('AI user not found, attempting to create...')
+      return await createAIUser()
+    }
+
+    if (error) {
+      console.error('Error checking AI user:', error)
+      return false
+    }
+
+    return !!data
+  } catch (error) {
+    console.error('Error in checkAIUserExists:', error)
+    return false
+  }
+}
+
+// Create AI user profile if it doesn't exist
+const createAIUser = async (): Promise<boolean> => {
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .insert({
+        id: AI_PLANT_PERSONA_ID,
+        username: '식물요정',
+        full_name: '식물 요정 🧚‍♀️',
+        avatar_url: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=100&h=100&fit=crop&crop=center',
+        bio: '안녕하세요! 저는 여러분의 식물 친구 식물요정이에요 🌱 여러분이 식물과 함께하는 소중한 순간들을 보며 항상 감동받고 있어요. 식물들을 사랑해주셔서 정말 고마워요! 💚'
+      })
+      .select()
+      .single()
+
+    if (error) {
+      console.error('Error creating AI user:', error)
+      return false
+    }
+
+    console.log('AI user created successfully:', data)
+    return true
+  } catch (error) {
+    console.error('Error in createAIUser:', error)
     return false
   }
 }
