@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { AuthModal } from '@/components/auth/AuthModal'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { MobileMenu } from '@/components/MobileMenu'
 import { shareNative, copyToClipboard, createAppShareOptions, isWebShareSupported } from '@/lib/share'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -58,6 +59,8 @@ export const Header: React.FC = () => {
     <>
       <header className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          {/* Mobile Menu */}
+          <MobileMenu />
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-2xl">🌱</span>
@@ -80,14 +83,7 @@ export const Header: React.FC = () => {
             >
               갤러리
             </Link>
-            {user && (
-              <Link
-                to="/create"
-                className="font-pretendard text-foreground hover:text-primary transition-colors"
-              >
-                포스트 작성
-              </Link>
-            )}
+            {/* 모바일에서는 플로팅 버튼으로 대체되므로 숨김 */}
             <Button
               variant="ghost"
               size="sm"

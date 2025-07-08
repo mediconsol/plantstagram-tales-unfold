@@ -135,3 +135,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Ensure content doesn't get hidden behind mobile browser UI */
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+  }
+
+  /* Improve touch targets */
+  button, a {
+    min-height: 44px;
+  }
+
+  /* Better spacing for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

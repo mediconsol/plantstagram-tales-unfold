@@ -11,6 +11,7 @@ import CreatePlantDay from "./pages/CreatePlantDay";
 import Gallery from "./pages/Gallery";
 import { Profile } from "./pages/Profile";
 import { Settings } from "./pages/Settings";
+import { FloatingActionButton } from "./components/FloatingActionButton";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,9 @@ const App = () => (
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
+
+              {/* Floating Action Button for mobile */}
+              <FloatingActionButton />
             </BrowserRouter>
           </TooltipProvider>
         </AuthProvider>
