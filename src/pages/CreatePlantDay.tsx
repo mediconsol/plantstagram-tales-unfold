@@ -105,20 +105,21 @@ export default function CreatePlantDay() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col overflow-x-hidden">
       <SEOHead {...SEOPresets.create} />
       <Header />
 
-      <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">
+      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 pt-16 md:pt-20 flex-1 max-w-full min-h-0">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-8">
           <Link to="/">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              돌아가기
+            <Button variant="ghost" size="sm" className="shrink-0">
+              <ArrowLeft className="w-4 h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">돌아가기</span>
+              <span className="sm:hidden">뒤로</span>
             </Button>
           </Link>
-          <h1 className="font-pretendard text-3xl font-bold text-foreground">
+          <h1 className="font-pretendard text-xl sm:text-2xl md:text-3xl font-bold text-foreground truncate">
             새 포스트 작성 🌱
           </h1>
         </div>
@@ -143,7 +144,7 @@ export default function CreatePlantDay() {
         )}
 
         {/* Main Form */}
-        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
+        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4 sm:space-y-6 w-full">
           {/* Image Upload */}
           <Card>
             <CardHeader>
@@ -193,7 +194,7 @@ export default function CreatePlantDay() {
                 value={formData.description}
                 onChange={(e) => handleInputChange('description', e.target.value)}
                 disabled={isSubmitting}
-                className="min-h-32 font-pretendard"
+                className="min-h-24 sm:min-h-32 font-pretendard resize-none"
               />
               {errors.description && (
                 <p className="text-sm text-red-600 mt-2">{errors.description}</p>
@@ -235,12 +236,12 @@ export default function CreatePlantDay() {
           </Card>
 
           {/* Submit Button */}
-          <div className="flex gap-4 pt-6">
-            <Link to="/" className="flex-1">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 pb-4 sm:pb-0">
+            <Link to="/" className="order-2 sm:order-1 sm:flex-1">
               <Button
                 type="button"
                 variant="outline"
-                className="font-pretendard w-full"
+                className="font-pretendard w-full h-12 sm:h-10"
                 disabled={isSubmitting}
               >
                 취소
@@ -248,16 +249,20 @@ export default function CreatePlantDay() {
             </Link>
             <Button
               type="submit"
-              className="font-pretendard flex-1"
+              className="font-pretendard order-1 sm:order-2 sm:flex-1 h-12 sm:h-10"
               disabled={isSubmitting || !formData.title.trim() || !formData.description.trim() || !formData.image_url}
             >
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  포스트 작성 중...
+                  <span className="hidden sm:inline">포스트 작성 중...</span>
+                  <span className="sm:hidden">작성 중...</span>
                 </>
               ) : (
-                '포스트 작성하기 🌱'
+                <>
+                  <span className="hidden sm:inline">포스트 작성하기 🌱</span>
+                  <span className="sm:hidden">작성하기 🌱</span>
+                </>
               )}
             </Button>
           </div>

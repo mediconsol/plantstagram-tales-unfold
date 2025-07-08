@@ -154,4 +154,30 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
+  /* Prevent horizontal overflow on mobile */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Mobile form optimizations */
+  .mobile-form-container {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Ensure inputs don't cause horizontal scroll */
+  input, textarea, select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Mobile keyboard handling */
+  @supports (-webkit-touch-callout: none) {
+    /* iOS Safari specific */
+    .ios-keyboard-fix {
+      position: fixed;
+      width: 100%;
+    }
+  }
 }
