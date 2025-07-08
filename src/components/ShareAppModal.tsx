@@ -3,11 +3,12 @@ import { shareNative, copyToClipboard, createAppShareOptions, isWebShareSupporte
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
 } from '@/components/ui/dialog'
 import { 
   Share, 
@@ -172,6 +173,9 @@ export const ShareAppModal: React.FC<ShareAppModalProps> = ({
             <Share className="w-5 h-5" />
             Plantstagram 공유하기
           </DialogTitle>
+          <DialogDescription className="font-pretendard">
+            친구들과 함께 Plantstagram을 즐겨보세요.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">

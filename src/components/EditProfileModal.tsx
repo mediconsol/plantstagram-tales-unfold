@@ -6,11 +6,12 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
 } from '@/components/ui/dialog'
 import { Camera, Save, X, Loader2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
@@ -25,8 +26,8 @@ interface ProfileFormData {
   username: string
   full_name: string
   bio: string
-  location: string
-  website: string
+  // location: string  // Temporarily disabled until DB schema is updated
+  // website: string   // Temporarily disabled until DB schema is updated
 }
 
 export const EditProfileModal: React.FC<EditProfileModalProps> = ({
@@ -42,9 +43,9 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   const [formData, setFormData] = useState<ProfileFormData>({
     username: profile?.username || user?.user_metadata?.username || '',
     full_name: profile?.full_name || user?.user_metadata?.full_name || '',
-    bio: profile?.bio || user?.user_metadata?.bio || '',
-    location: profile?.location || user?.user_metadata?.location || '',
-    website: profile?.website || user?.user_metadata?.website || ''
+    bio: profile?.bio || user?.user_metadata?.bio || ''
+    // location: profile?.location || user?.user_metadata?.location || '',
+    // website: profile?.website || user?.user_metadata?.website || ''
   })
 
   const [errors, setErrors] = useState<Partial<ProfileFormData>>({})
@@ -67,9 +68,10 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
       newErrors.full_name = '이름을 입력해주세요'
     }
 
-    if (formData.website && !formData.website.startsWith('http')) {
-      newErrors.website = '웹사이트 URL은 http:// 또는 https://로 시작해야 합니다'
-    }
+    // Temporarily disabled until DB schema is updated
+    // if (formData.website && !formData.website.startsWith('http')) {
+    //   newErrors.website = '웹사이트 URL은 http:// 또는 https://로 시작해야 합니다'
+    // }
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -156,6 +158,9 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <span className="text-2xl">✏️</span>
             프로필 편집
           </DialogTitle>
+          <DialogDescription className="font-pretendard">
+            프로필 정보를 수정하고 저장할 수 있습니다.
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -237,6 +242,8 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
               </p>
             </div>
 
+            {/* Temporarily disabled until DB schema is updated */}
+            {/*
             <div className="space-y-2">
               <Label htmlFor="location" className="font-pretendard">위치</Label>
               <Input
@@ -263,6 +270,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 <p className="text-sm text-red-600 font-pretendard">{errors.website}</p>
               )}
             </div>
+            */}
           </div>
 
           {/* Submit Buttons */}

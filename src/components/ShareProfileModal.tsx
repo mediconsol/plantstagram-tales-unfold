@@ -5,11 +5,12 @@ import { shareNative, copyToClipboard, isWebShareSupported } from '@/lib/share'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
 } from '@/components/ui/dialog'
 import { 
   Share, 
@@ -153,6 +154,9 @@ export const ShareProfileModal: React.FC<ShareProfileModalProps> = ({
             <Share className="w-5 h-5" />
             프로필 공유하기
           </DialogTitle>
+          <DialogDescription className="font-pretendard">
+            프로필을 친구들과 공유해보세요.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">

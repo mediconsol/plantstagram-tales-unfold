@@ -8,8 +8,8 @@ export interface Profile {
   full_name: string
   avatar_url?: string
   bio?: string
-  location?: string
-  website?: string
+  // location?: string  // Temporarily disabled until DB schema is updated
+  // website?: string   // Temporarily disabled until DB schema is updated
   created_at: string
   updated_at: string
 }
@@ -19,8 +19,8 @@ export interface ProfileUpdateData {
   full_name?: string
   avatar_url?: string
   bio?: string
-  location?: string
-  website?: string
+  // location?: string  // Temporarily disabled until DB schema is updated
+  // website?: string   // Temporarily disabled until DB schema is updated
 }
 
 const QUERY_KEYS = {

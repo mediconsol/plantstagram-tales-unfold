@@ -56,8 +56,8 @@ export const Profile = () => {
     fullName: profile?.full_name || user.user_metadata?.full_name || user.user_metadata?.username || '이름 없음',
     avatarUrl: profile?.avatar_url || user.user_metadata?.avatar_url,
     bio: profile?.bio || user.user_metadata?.bio || '아직 소개글이 없습니다.',
-    location: profile?.location || user.user_metadata?.location,
-    website: profile?.website || user.user_metadata?.website,
+    // location: profile?.location || user.user_metadata?.location,  // Temporarily disabled
+    // website: profile?.website || user.user_metadata?.website,     // Temporarily disabled
     joinedAt: profile?.created_at || user.created_at
   }
 
@@ -110,18 +110,19 @@ export const Profile = () => {
                   </p>
                   
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                    {userInfo.location && (
+                    {/* Temporarily disabled until DB schema is updated */}
+                    {/* userInfo.location && (
                       <div className="flex items-center gap-1">
                         <MapPin className="w-4 h-4" />
                         <span className="font-pretendard">{userInfo.location}</span>
                       </div>
-                    )}
+                    ) */}
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       <span className="font-pretendard">
-                        {formatDistanceToNow(new Date(userInfo.joinedAt), { 
-                          addSuffix: true, 
-                          locale: ko 
+                        {formatDistanceToNow(new Date(userInfo.joinedAt), {
+                          addSuffix: true,
+                          locale: ko
                         })} 가입
                       </span>
                     </div>
