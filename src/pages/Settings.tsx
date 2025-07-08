@@ -107,7 +107,7 @@ export const Settings = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       
-      <main className="flex-1 container mx-auto px-4 py-8 max-w-4xl">
+      <main className="flex-1 container mx-auto px-4 py-8 pt-16 md:pt-20 max-w-4xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold font-pretendard mb-2">설정</h1>
           <p className="text-muted-foreground font-pretendard">

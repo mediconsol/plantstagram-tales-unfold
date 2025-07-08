@@ -73,7 +73,7 @@ const Gallery: React.FC = () => {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Header />
-        <div className="container mx-auto px-4 py-8 pt-20 flex-1">
+        <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">
           <div className="flex items-center justify-center py-12">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
@@ -106,7 +106,7 @@ const Gallery: React.FC = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
-      <div className="container mx-auto px-4 py-8 pt-20 flex-1">
+      <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">
         {/* Page Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-pretendard font-bold text-foreground mb-4">

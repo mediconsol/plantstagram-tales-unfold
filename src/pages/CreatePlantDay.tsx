@@ -101,7 +101,7 @@ export default function CreatePlantDay() {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
-      <div className="container mx-auto px-4 py-8 pt-20 flex-1">
+      <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <Link to="/">
