@@ -133,8 +133,40 @@ export const useCreateComment = () => {
     mutationFn: commentsApi.create,
     onSuccess: (data, variables) => {
       // Invalidate comments for this post
-      queryClient.invalidateQueries({ 
-        queryKey: [QUERY_KEYS.COMMENTS, variables.post_id] 
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.COMMENTS, variables.post_id]
+      })
+    },
+  })
+}
+
+// Update comment mutation
+export const useUpdateComment = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, content, postId }: { id: string; content: string; postId: string }) =>
+      commentsApi.update(id, { content }),
+    onSuccess: (data, variables) => {
+      // Invalidate comments for this post
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.COMMENTS, variables.postId]
+      })
+    },
+  })
+}
+
+// Delete comment mutation
+export const useDeleteComment = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, postId }: { id: string; postId: string }) =>
+      commentsApi.delete(id),
+    onSuccess: (data, variables) => {
+      // Invalidate comments for this post
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.COMMENTS, variables.postId]
       })
     },
   })

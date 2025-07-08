@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
-import { useComments, useCreateComment } from '@/hooks/usePlantPosts'
+import { useComments, useCreateComment, useUpdateComment, useDeleteComment } from '@/hooks/usePlantPosts'
 import { Comment } from '@/types/database'
 import { AI_PLANT_PERSONA_ID } from '@/lib/aiPlantPersona'
 import { Button } from '@/components/ui/button'
@@ -8,7 +8,23 @@ import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Loader2, Send, MessageCircle, Sparkles } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
+import { Loader2, Send, MessageCircle, Sparkles, MoreHorizontal, Edit, Trash2 } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
@@ -132,7 +148,7 @@ export const CommentSection: React.FC<CommentSectionProps> = ({
                   </h4>
                   <div className="space-y-4">
                     {comments.map((comment) => (
-                      <CommentItem key={comment.id} comment={comment} />
+                      <CommentItem key={comment.id} comment={comment} postId={postId} />
                     ))}
                   </div>
                 </div>
@@ -153,54 +169,185 @@ export const CommentSection: React.FC<CommentSectionProps> = ({
 // Individual Comment Component
 interface CommentItemProps {
   comment: Comment
+  postId: string
 }
 
-const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
+const CommentItem: React.FC<CommentItemProps> = ({ comment, postId }) => {
+  const { user } = useAuth()
+  const updateCommentMutation = useUpdateComment()
+  const deleteCommentMutation = useDeleteComment()
+
+  const [isEditing, setIsEditing] = useState(false)
+  const [editContent, setEditContent] = useState(comment.content)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+
   const timeAgo = formatDistanceToNow(new Date(comment.created_at), {
     addSuffix: true,
     locale: ko,
   })
 
   const isAIComment = comment.user_id === AI_PLANT_PERSONA_ID
+  const isOwner = user?.id === comment.user_id
+  const isUpdated = comment.updated_at !== comment.created_at
+
+  const handleEdit = async () => {
+    if (!editContent.trim()) return
+
+    try {
+      await updateCommentMutation.mutateAsync({
+        id: comment.id,
+        content: editContent.trim(),
+        postId
+      })
+      setIsEditing(false)
+    } catch (error) {
+      console.error('Error updating comment:', error)
+    }
+  }
+
+  const handleDelete = async () => {
+    try {
+      await deleteCommentMutation.mutateAsync({
+        id: comment.id,
+        postId
+      })
+      setShowDeleteDialog(false)
+    } catch (error) {
+      console.error('Error deleting comment:', error)
+    }
+  }
+
+  const handleCancelEdit = () => {
+    setEditContent(comment.content)
+    setIsEditing(false)
+  }
 
   return (
-    <div className={`flex gap-3 p-3 rounded-lg transition-colors ${
-      isAIComment
-        ? 'bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 hover:from-green-100 hover:to-emerald-100'
-        : 'bg-muted/30 hover:bg-muted/50'
-    }`}>
-      <Avatar className="w-8 h-8 flex-shrink-0">
-        <AvatarImage
-          src={comment.profiles?.avatar_url}
-          alt={comment.profiles?.username || 'User'}
-        />
-        <AvatarFallback className={`text-xs text-white ${
-          isAIComment ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 'bg-gradient-earth'
-        }`}>
-          {isAIComment ? '🧚‍♀️' : comment.profiles?.username?.[0]?.toUpperCase() || 'U'}
-        </AvatarFallback>
-      </Avatar>
-      <div className="flex-1 space-y-1">
-        <div className="flex items-center gap-2">
-          <span className="font-pretendard font-medium text-sm text-foreground">
-            {comment.profiles?.username || '익명 사용자'}
-          </span>
-          {isAIComment && (
-            <Badge variant="secondary" className="text-xs bg-green-100 text-green-700 border-green-300">
-              <Sparkles className="w-3 h-3 mr-1" />
-              식물 요정
-            </Badge>
+    <>
+      <div className={`flex gap-3 p-3 rounded-lg transition-colors ${
+        isAIComment
+          ? 'bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 hover:from-green-100 hover:to-emerald-100'
+          : 'bg-muted/30 hover:bg-muted/50'
+      }`}>
+        <Avatar className="w-8 h-8 flex-shrink-0">
+          <AvatarImage
+            src={comment.profiles?.avatar_url}
+            alt={comment.profiles?.username || 'User'}
+          />
+          <AvatarFallback className={`text-xs text-white ${
+            isAIComment ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 'bg-gradient-earth'
+          }`}>
+            {isAIComment ? '🧚‍♀️' : comment.profiles?.username?.[0]?.toUpperCase() || 'U'}
+          </AvatarFallback>
+        </Avatar>
+
+        <div className="flex-1 space-y-1">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="font-pretendard font-medium text-sm text-foreground">
+                {comment.profiles?.username || '익명 사용자'}
+              </span>
+              {isAIComment && (
+                <Badge variant="secondary" className="text-xs bg-green-100 text-green-700 border-green-300">
+                  <Sparkles className="w-3 h-3 mr-1" />
+                  식물 요정
+                </Badge>
+              )}
+              <span className="text-xs text-muted-foreground">
+                {timeAgo}
+                {isUpdated && ' (수정됨)'}
+              </span>
+            </div>
+
+            {/* 본인 댓글에만 수정/삭제 메뉴 표시 */}
+            {isOwner && !isAIComment && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                    <MoreHorizontal className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => setIsEditing(true)}>
+                    <Edit className="w-4 h-4 mr-2" />
+                    수정
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => setShowDeleteDialog(true)}
+                    className="text-destructive"
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    삭제
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </div>
+
+          {/* 댓글 내용 또는 수정 폼 */}
+          {isEditing ? (
+            <div className="space-y-2">
+              <Textarea
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                className="min-h-20 font-pretendard resize-none"
+                disabled={updateCommentMutation.isPending}
+              />
+              <div className="flex gap-2 justify-end">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCancelEdit}
+                  disabled={updateCommentMutation.isPending}
+                >
+                  취소
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleEdit}
+                  disabled={updateCommentMutation.isPending || !editContent.trim()}
+                >
+                  {updateCommentMutation.isPending ? (
+                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  ) : null}
+                  수정
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <p className={`font-pretendard text-sm leading-relaxed ${
+              isAIComment ? 'text-green-800' : 'text-foreground'
+            }`}>
+              {comment.content}
+            </p>
           )}
-          <span className="text-xs text-muted-foreground">
-            {timeAgo}
-          </span>
         </div>
-        <p className={`font-pretendard text-sm leading-relaxed ${
-          isAIComment ? 'text-green-800' : 'text-foreground'
-        }`}>
-          {comment.content}
-        </p>
       </div>
-    </div>
+
+      {/* 삭제 확인 다이얼로그 */}
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>댓글 삭제</AlertDialogTitle>
+            <AlertDialogDescription>
+              이 댓글을 삭제하시겠습니까? 삭제된 댓글은 복구할 수 없습니다.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>취소</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDelete}
+              disabled={deleteCommentMutation.isPending}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {deleteCommentMutation.isPending ? (
+                <Loader2 className="w-4 h-4 animate-spin mr-2" />
+              ) : null}
+              삭제
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   )
 }

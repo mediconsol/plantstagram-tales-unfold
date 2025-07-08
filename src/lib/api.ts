@@ -234,6 +234,53 @@ export const commentsApi = {
       console.error('Error creating comment:', error)
       return { data: null, error: (error as Error).message }
     }
+  },
+
+  // Update comment
+  async update(id: string, updates: { content: string }): Promise<ApiResponse<Comment>> {
+    try {
+      const { data, error } = await supabase
+        .from('comments')
+        .update({
+          content: updates.content,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+        .select(`
+          *,
+          profiles:user_id (
+            id,
+            username,
+            full_name,
+            avatar_url
+          )
+        `)
+        .single()
+
+      if (error) throw error
+
+      return { data, error: null }
+    } catch (error) {
+      console.error('Error updating comment:', error)
+      return { data: null, error: (error as Error).message }
+    }
+  },
+
+  // Delete comment
+  async delete(id: string): Promise<ApiResponse<null>> {
+    try {
+      const { error } = await supabase
+        .from('comments')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+
+      return { data: null, error: null }
+    } catch (error) {
+      console.error('Error deleting comment:', error)
+      return { data: null, error: (error as Error).message }
+    }
   }
 }
 
