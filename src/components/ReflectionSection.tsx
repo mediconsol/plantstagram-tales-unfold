@@ -1,6 +1,9 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { ShareAppModal } from "./ShareAppModal";
 
 export const ReflectionSection = () => {
+  const [showShareModal, setShowShareModal] = useState(false);
   return (
     <section className="py-20 px-6 bg-gradient-forest">
       <div className="max-w-4xl mx-auto text-center">
@@ -35,7 +38,10 @@ export const ReflectionSection = () => {
                 나의 하루 기록하기 ✨
               </button>
             </Link>
-            <button className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg transition-all duration-300">
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg transition-all duration-300"
+            >
               친구들과 공유하기 🌿
             </button>
           </div>
@@ -49,6 +55,12 @@ export const ReflectionSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Share App Modal */}
+      <ShareAppModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+      />
     </section>
   );
 };

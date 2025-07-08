@@ -84,10 +84,10 @@ export const createPostShareOptions = (post: PlantPost): ShareOptions => {
 // 앱 공유 옵션 생성
 export const createAppShareOptions = (): ShareOptions => {
   const baseUrl = window.location.origin
-  
+
   return {
-    title: '🌱 Plantstagram Tales Unfold',
-    text: '식물들의 일상을 공유하는 특별한 공간에 초대합니다!',
+    title: '🌱 Plantstagram Tales Unfold - 식물들의 이야기',
+    text: '🌱 식물과 함께하는 특별한 순간들을 기록하고 공유해보세요! Plantstagram에서 식물 친구들과 소통하며 자연의 아름다움을 나눠요. 🌿✨',
     url: baseUrl
   }
 }
