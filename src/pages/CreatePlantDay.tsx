@@ -3,6 +3,7 @@ import { ArrowLeft, Loader2, CheckCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCreatePlantPost } from "@/hooks/usePlantPosts";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ImageUpload } from "@/components/ImageUpload";
@@ -27,6 +28,9 @@ export default function CreatePlantDay() {
   const navigate = useNavigate()
   const createPostMutation = useCreatePlantPost()
 
+  // Scroll to top when page loads
+  useScrollToTop()
+
   const [formData, setFormData] = useState<PostFormData>({
     title: '',
     description: '',
@@ -43,6 +47,8 @@ export default function CreatePlantDay() {
       navigate('/')
     }
   }, [user, navigate])
+
+
 
   const validateForm = (): boolean => {
     const newErrors: Partial<PostFormData> = {}

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { useProfile, useUserStats, useUserPosts } from '@/hooks/useProfile'
+import { useScrollToTop } from '@/hooks/useScrollToTop'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { PlantPost } from '@/components/PlantPost'
@@ -34,6 +35,9 @@ export const Profile = () => {
   const [activeTab, setActiveTab] = useState('posts')
   const [showEditModal, setShowEditModal] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
+
+  // Scroll to top when page loads
+  useScrollToTop()
 
   if (!user) {
     return (

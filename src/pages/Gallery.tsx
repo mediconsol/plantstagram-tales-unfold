@@ -15,6 +15,7 @@ import { Heart, MessageCircle, Search, Filter, Grid, List, Loader2 } from 'lucid
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { Link } from 'react-router-dom'
+import { useScrollToTop } from '@/hooks/useScrollToTop'
 
 const Gallery: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -25,6 +26,9 @@ const Gallery: React.FC = () => {
   const { data, isLoading, error } = usePlantPosts(0, 50) // Load more posts for gallery
 
   const posts = data?.data || []
+
+  // Scroll to top when page loads
+  useScrollToTop()
 
   // Filter and sort posts
   const filteredAndSortedPosts = React.useMemo(() => {

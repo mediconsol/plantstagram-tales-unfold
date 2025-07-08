@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useScrollToTop } from '@/hooks/useScrollToTop'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
@@ -28,7 +29,10 @@ export const Settings = () => {
   const { user, signOut } = useAuth()
   const { theme, setTheme } = useTheme()
   const { toast } = useToast()
-  
+
+  // Scroll to top when page loads
+  useScrollToTop()
+
   const [isLoading, setIsLoading] = useState(false)
   const [profileData, setProfileData] = useState({
     username: user?.user_metadata?.username || '',
