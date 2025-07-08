@@ -113,8 +113,8 @@ const Gallery: React.FC = () => {
             🌱 식물들의 하루
           </h1>
           <p className="text-lg text-muted-foreground font-pretendard max-w-2xl mx-auto">
-            식물들이 전하는 특별한 순간들을 모아놓은 갤러리입니다. 
-            각각의 이야기 속에서 자연의 아름다움을 발견해보세요.
+            식물들의 특별한 순간들을 담은 갤러리입니다.<br />
+            각각의 이야기에서 자연의 아름다움을 발견해보세요.
           </p>
         </div>
 
