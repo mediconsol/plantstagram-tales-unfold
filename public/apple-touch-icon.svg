@@ -1,12 +1,12 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background with rounded corners for iOS -->
+  <!-- iOS App Icon optimized design -->
   <defs>
     <radialGradient id="bgGradient" cx="0.3" cy="0.3" r="0.8">
-      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="0%" stop-color="#4ade80"/>
       <stop offset="100%" stop-color="#22c55e"/>
     </radialGradient>
     <linearGradient id="leafGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="0%" stop-color="#4ade80"/>
       <stop offset="50%" stop-color="#22c55e"/>
       <stop offset="100%" stop-color="#16a34a"/>
     </linearGradient>
@@ -15,51 +15,34 @@
       <stop offset="50%" stop-color="#16a34a"/>
       <stop offset="100%" stop-color="#15803d"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.1"/>
-    </filter>
   </defs>
   
-  <!-- iOS rounded rectangle background -->
-  <rect width="180" height="180" rx="40" ry="40" fill="url(#bgGradient)" filter="url(#shadow)"/>
-  
-  <!-- Sprout/seedling icon (scaled up for 180x180) -->
-  <g transform="translate(30, 20)">
+  <!-- iOS App Icon Background (no rounded corners - iOS adds them) -->
+  <rect width="180" height="180" fill="url(#bgGradient)"/>
+
+  <!-- Simplified sprout design for better iOS visibility -->
+  <g transform="translate(40, 30)">
     <!-- Main stem -->
-    <rect x="58" y="80" width="8" height="60" fill="#15803d" rx="4"/>
-    
+    <rect x="48" y="70" width="6" height="50" fill="#15803d" rx="3"/>
+
     <!-- Left main leaf -->
-    <path d="M15 55 C15 45, 25 35, 45 40 C55 50, 65 55, 62 70 C55 80, 35 85, 15 75 Z" 
-          fill="url(#leafGradient1)" filter="url(#shadow)"/>
-    
+    <path d="M10 45 C10 35, 20 25, 35 30 C45 40, 55 45, 52 60 C45 70, 25 75, 10 65 Z"
+          fill="url(#leafGradient1)"/>
+
     <!-- Right main leaf -->
-    <path d="M105 55 C105 45, 95 35, 75 40 C65 50, 55 55, 58 70 C65 80, 85 85, 105 75 Z" 
-          fill="url(#leafGradient2)" filter="url(#shadow)"/>
-    
-    <!-- Left secondary leaf -->
-    <path d="M25 70 C25 65, 30 60, 40 62 C45 67, 50 70, 48 78 C45 82, 35 85, 25 80 Z" 
-          fill="#22c55e" opacity="0.8"/>
-    
-    <!-- Right secondary leaf -->
-    <path d="M95 70 C95 65, 90 60, 80 62 C75 67, 70 70, 72 78 C75 82, 85 85, 95 80 Z" 
-          fill="#16a34a" opacity="0.8"/>
-    
+    <path d="M90 45 C90 35, 80 25, 65 30 C55 40, 45 45, 48 60 C55 70, 75 75, 90 65 Z"
+          fill="url(#leafGradient2)"/>
+
     <!-- Small leaves on stem -->
-    <ellipse cx="50" cy="90" rx="8" ry="4" fill="#22c55e" transform="rotate(-25 50 90)" opacity="0.9"/>
-    <ellipse cx="70" cy="100" rx="8" ry="4" fill="#22c55e" transform="rotate(25 70 100)" opacity="0.9"/>
-    <ellipse cx="55" cy="110" rx="6" ry="3" fill="#34d399" transform="rotate(-15 55 110)" opacity="0.8"/>
-    <ellipse cx="65" cy="120" rx="6" ry="3" fill="#34d399" transform="rotate(15 65 120)" opacity="0.8"/>
-    
-    <!-- Center bud/flower -->
-    <circle cx="60" cy="50" r="12" fill="#15803d" filter="url(#shadow)"/>
-    <circle cx="60" cy="50" r="8" fill="#22c55e"/>
-    <circle cx="60" cy="50" r="4" fill="#34d399"/>
-    
-    <!-- Small decorative dots -->
-    <circle cx="58" cy="48" r="1.5" fill="#ffffff" opacity="0.6"/>
-    <circle cx="62" cy="52" r="1" fill="#ffffff" opacity="0.4"/>
+    <ellipse cx="40" cy="80" rx="6" ry="3" fill="#4ade80" transform="rotate(-20 40 80)" opacity="0.9"/>
+    <ellipse cx="56" cy="90" rx="6" ry="3" fill="#4ade80" transform="rotate(20 56 90)" opacity="0.9"/>
+
+    <!-- Center bud -->
+    <circle cx="50" cy="40" r="10" fill="#15803d"/>
+    <circle cx="50" cy="40" r="6" fill="#22c55e"/>
+    <circle cx="50" cy="40" r="3" fill="#4ade80"/>
+
+    <!-- Highlight -->
+    <circle cx="48" cy="38" r="1.5" fill="#ffffff" opacity="0.7"/>
   </g>
-  
-  <!-- Subtle brand text at bottom (optional) -->
-  <text x="90" y="165" text-anchor="middle" font-family="system-ui, -apple-system" font-size="12" font-weight="600" fill="#ffffff" opacity="0.8">Plantgram</text>
 </svg>
