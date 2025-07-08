@@ -19,8 +19,8 @@ const DEFAULT_SEO = {
   title: 'Plantgram - 식물도 피드를 올린다',
   description: '식물들의 특별한 순간을 기록하고 공유하는 소셜 플랫폼. 자연과 함께하는 일상을 나누고, 식물 친구들과 소통해보세요. 🌱',
   keywords: '식물, 플랜트그램, 식물키우기, 반려식물, 가드닝, 식물일기, 식물소통, 자연, 힐링, 그린라이프',
-  image: 'https://plantstagram-tales-unfold.vercel.app/og-image.jpg',
-  url: 'https://plantstagram-tales-unfold.vercel.app/',
+  image: 'https://aatto.kr/og-image.jpg',
+  url: 'https://aatto.kr/',
   type: 'website' as const,
   siteName: 'Plantgram',
   locale: 'ko_KR',
@@ -112,7 +112,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
               "name": DEFAULT_SEO.siteName,
               "logo": {
                 "@type": "ImageObject",
-                "url": `${DEFAULT_SEO.url}logo.png`
+                "url": `${DEFAULT_SEO.url}favicon.svg`
               }
             },
             "datePublished": publishedTime,

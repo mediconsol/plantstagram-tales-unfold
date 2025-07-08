@@ -1,0 +1,40 @@
+{
+  "name": "Plantgram - 식물도 피드를 올린다",
+  "short_name": "Plantgram",
+  "description": "식물들의 특별한 순간을 기록하고 공유하는 소셜 플랫폼",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#22c55e",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["lifestyle", "social", "utilities"],
+  "screenshots": [
+    {
+      "src": "/og-image.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "platform": "wide",
+      "label": "Plantgram 메인 화면"
+    }
+  ]
+}
