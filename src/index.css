@@ -180,6 +180,25 @@
     resize: none !important;
     white-space: pre-wrap;
     word-break: break-word;
+    font-size: 16px !important; /* Prevent iOS zoom */
+    transform: scale(1) !important;
+    transform-origin: top left !important;
+    zoom: 1 !important;
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+  }
+
+  /* iOS Safari specific textarea fixes */
+  @supports (-webkit-touch-callout: none) {
+    textarea {
+      font-size: 16px !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      -webkit-border-radius: 0 !important;
+      border-radius: 0.375rem !important;
+    }
   }
 
   /* Card content overflow protection */

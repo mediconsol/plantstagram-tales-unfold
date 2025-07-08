@@ -153,16 +153,29 @@ export const EditPostModal: React.FC<EditPostModalProps> = ({
           {/* Description */}
           <div className="space-y-2">
             <Label htmlFor="edit-description" className="font-pretendard">설명</Label>
-            <Textarea
-              id="edit-description"
-              placeholder="식물과 함께한 특별한 순간을 자세히 들려주세요..."
-              value={formData.description}
-              onChange={(e) => handleInputChange('description', e.target.value)}
-              disabled={isSubmitting}
-              className="min-h-24 font-pretendard"
-            />
+            <div className="w-full overflow-hidden">
+              <Textarea
+                id="edit-description"
+                placeholder="식물과 함께한 특별한 순간을 자세히 들려주세요..."
+                value={formData.description}
+                onChange={(e) => handleInputChange('description', e.target.value)}
+                disabled={isSubmitting}
+                className="min-h-24 font-pretendard w-full max-w-full box-border resize-none"
+                style={{
+                  maxWidth: '100%',
+                  width: '100%',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  whiteSpace: 'pre-wrap',
+                  fontSize: '16px',
+                  transform: 'scale(1)',
+                  transformOrigin: 'top left',
+                  zoom: '1'
+                }}
+              />
+            </div>
             {errors.description && (
-              <p className="text-sm text-red-600">{errors.description}</p>
+              <p className="text-sm text-red-600 break-words">{errors.description}</p>
             )}
           </div>
 

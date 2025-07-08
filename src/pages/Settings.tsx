@@ -177,14 +177,27 @@ export const Settings = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="bio" className="font-pretendard">소개</Label>
-                <Textarea
-                  id="bio"
-                  value={profileData.bio}
-                  onChange={(e) => setProfileData(prev => ({ ...prev, bio: e.target.value }))}
-                  placeholder="자신을 소개해보세요"
-                  className="font-pretendard"
-                  rows={3}
-                />
+                <div className="w-full overflow-hidden">
+                  <Textarea
+                    id="bio"
+                    value={profileData.bio}
+                    onChange={(e) => setProfileData(prev => ({ ...prev, bio: e.target.value }))}
+                    placeholder="자신을 소개해보세요"
+                    className="font-pretendard w-full max-w-full box-border resize-none"
+                    rows={3}
+                    style={{
+                      maxWidth: '100%',
+                      width: '100%',
+                      wordWrap: 'break-word',
+                      overflowWrap: 'break-word',
+                      whiteSpace: 'pre-wrap',
+                      fontSize: '16px',
+                      transform: 'scale(1)',
+                      transformOrigin: 'top left',
+                      zoom: '1'
+                    }}
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

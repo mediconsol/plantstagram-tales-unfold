@@ -228,16 +228,29 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
             <div className="space-y-2">
               <Label htmlFor="bio" className="font-pretendard">소개</Label>
-              <Textarea
-                id="bio"
-                value={formData.bio}
-                onChange={(e) => handleInputChange('bio', e.target.value)}
-                placeholder="자신을 소개해보세요"
-                disabled={isSubmitting}
-                className="min-h-20 font-pretendard"
-                maxLength={150}
-              />
-              <p className="text-xs text-muted-foreground font-pretendard">
+              <div className="w-full overflow-hidden">
+                <Textarea
+                  id="bio"
+                  value={formData.bio}
+                  onChange={(e) => handleInputChange('bio', e.target.value)}
+                  placeholder="자신을 소개해보세요"
+                  disabled={isSubmitting}
+                  className="min-h-20 font-pretendard w-full max-w-full box-border resize-none"
+                  maxLength={150}
+                  style={{
+                    maxWidth: '100%',
+                    width: '100%',
+                    wordWrap: 'break-word',
+                    overflowWrap: 'break-word',
+                    whiteSpace: 'pre-wrap',
+                    fontSize: '16px',
+                    transform: 'scale(1)',
+                    transformOrigin: 'top left',
+                    zoom: '1'
+                  }}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground font-pretendard break-words">
                 {formData.bio.length}/150자
               </p>
             </div>

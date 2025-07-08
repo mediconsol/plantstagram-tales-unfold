@@ -204,7 +204,11 @@ export default function CreatePlantDay() {
                     width: '100%',
                     wordWrap: 'break-word',
                     overflowWrap: 'break-word',
-                    whiteSpace: 'pre-wrap'
+                    whiteSpace: 'pre-wrap',
+                    fontSize: '16px',
+                    transform: 'scale(1)',
+                    transformOrigin: 'top left',
+                    zoom: '1'
                   }}
                 />
               </div>
