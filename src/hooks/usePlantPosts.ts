@@ -31,14 +31,7 @@ export const usePlantPost = (id: string) => {
   })
 }
 
-// Get single plant post
-export const usePlantPost = (id: string) => {
-  return useQuery({
-    queryKey: [QUERY_KEYS.PLANT_POST, id],
-    queryFn: () => plantPostsApi.getById(id),
-    enabled: !!id,
-  })
-}
+
 
 // Create plant post mutation
 export const useCreatePlantPost = () => {
