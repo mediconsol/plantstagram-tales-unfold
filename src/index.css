@@ -168,8 +168,25 @@
 
   /* Ensure inputs don't cause horizontal scroll */
   input, textarea, select {
-    max-width: 100%;
-    box-sizing: border-box;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Textarea specific fixes */
+  textarea {
+    resize: none !important;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* Card content overflow protection */
+  .card-content-safe {
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   /* Mobile keyboard handling */

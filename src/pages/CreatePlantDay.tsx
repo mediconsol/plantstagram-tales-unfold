@@ -164,74 +164,91 @@ export default function CreatePlantDay() {
           </Card>
 
           {/* Title */}
-          <Card>
+          <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="font-pretendard">제목</CardTitle>
             </CardHeader>
-            <CardContent>
-              <Input
-                placeholder="오늘의 식물 이야기 제목을 입력하세요"
-                value={formData.title}
-                onChange={(e) => handleInputChange('title', e.target.value)}
-                disabled={isSubmitting}
-                className="font-pretendard"
-              />
+            <CardContent className="overflow-hidden">
+              <div className="w-full overflow-hidden">
+                <Input
+                  placeholder="오늘의 식물 이야기 제목을 입력하세요"
+                  value={formData.title}
+                  onChange={(e) => handleInputChange('title', e.target.value)}
+                  disabled={isSubmitting}
+                  className="font-pretendard w-full max-w-full box-border"
+                  style={{ maxWidth: '100%', width: '100%' }}
+                />
+              </div>
               {errors.title && (
-                <p className="text-sm text-red-600 mt-2">{errors.title}</p>
+                <p className="text-sm text-red-600 mt-2 break-words">{errors.title}</p>
               )}
             </CardContent>
           </Card>
 
           {/* Description */}
-          <Card>
+          <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="font-pretendard">설명</CardTitle>
             </CardHeader>
-            <CardContent>
-              <Textarea
-                placeholder="식물과 함께한 특별한 순간을 자세히 들려주세요...
+            <CardContent className="overflow-hidden">
+              <div className="w-full overflow-hidden">
+                <Textarea
+                  placeholder="식물과 함께한 특별한 순간을 자세히 들려주세요...
 예: 오늘 새싹이 돋아났어요! 정말 신기하고 감동적이었습니다. #새싹 #성장 #감동"
-                value={formData.description}
-                onChange={(e) => handleInputChange('description', e.target.value)}
-                disabled={isSubmitting}
-                className="min-h-24 sm:min-h-32 font-pretendard resize-none"
-              />
+                  value={formData.description}
+                  onChange={(e) => handleInputChange('description', e.target.value)}
+                  disabled={isSubmitting}
+                  className="w-full min-h-24 sm:min-h-32 font-pretendard resize-none border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 max-w-full box-border"
+                  style={{
+                    maxWidth: '100%',
+                    width: '100%',
+                    wordWrap: 'break-word',
+                    overflowWrap: 'break-word',
+                    whiteSpace: 'pre-wrap'
+                  }}
+                />
+              </div>
               {errors.description && (
-                <p className="text-sm text-red-600 mt-2">{errors.description}</p>
+                <p className="text-sm text-red-600 mt-2 break-words">{errors.description}</p>
               )}
-              <p className="text-sm text-muted-foreground mt-2">
+              <p className="text-sm text-muted-foreground mt-2 break-words">
                 해시태그(#)를 사용해서 키워드를 추가해보세요!
               </p>
             </CardContent>
           </Card>
 
           {/* Plant Type */}
-          <Card>
+          <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="font-pretendard">식물 종류 (선택사항)</CardTitle>
             </CardHeader>
-            <CardContent>
-              <PlantTypeSelector
-                selectedType={formData.plant_type}
-                onTypeSelect={(type) => handleInputChange('plant_type', type)}
-                disabled={isSubmitting}
-              />
+            <CardContent className="overflow-hidden">
+              <div className="w-full overflow-hidden">
+                <PlantTypeSelector
+                  selectedType={formData.plant_type}
+                  onTypeSelect={(type) => handleInputChange('plant_type', type)}
+                  disabled={isSubmitting}
+                />
+              </div>
             </CardContent>
           </Card>
 
           {/* Location */}
-          <Card>
+          <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="font-pretendard">위치 (선택사항)</CardTitle>
             </CardHeader>
-            <CardContent>
-              <Input
-                placeholder="예: 거실 창가, 베란다, 정원 등"
-                value={formData.location}
-                onChange={(e) => handleInputChange('location', e.target.value)}
-                disabled={isSubmitting}
-                className="font-pretendard"
-              />
+            <CardContent className="overflow-hidden">
+              <div className="w-full overflow-hidden">
+                <Input
+                  placeholder="예: 거실 창가, 베란다, 정원 등"
+                  value={formData.location}
+                  onChange={(e) => handleInputChange('location', e.target.value)}
+                  disabled={isSubmitting}
+                  className="font-pretendard w-full max-w-full box-border"
+                  style={{ maxWidth: '100%', width: '100%' }}
+                />
+              </div>
             </CardContent>
           </Card>
 
