@@ -83,6 +83,7 @@ export const createPostShareOptions = (post: PlantPost): ShareOptions => {
 
 // 앱 공유 옵션 생성
 export const createAppShareOptions = (): ShareOptions => {
+  // 현재 도메인을 사용하되, 개발 환경에서는 기본 도메인 사용
   const baseUrl = window.location.origin
 
   return {
