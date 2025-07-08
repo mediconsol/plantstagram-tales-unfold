@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { useProfile, useUserStats, useUserPosts } from '@/hooks/useProfile'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { PlantPost } from '@/components/PlantPost'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { EditProfileModal } from '@/components/EditProfileModal'
+import { ShareProfileModal } from '@/components/ShareProfileModal'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -29,6 +32,8 @@ export const Profile = () => {
   const { data: stats, isLoading: statsLoading } = useUserStats()
   const { data: userPosts, isLoading: postsLoading } = useUserPosts()
   const [activeTab, setActiveTab] = useState('posts')
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false)
 
   if (!user) {
     return (
@@ -80,9 +85,10 @@ export const Profile = () => {
                     {userInfo.username[0]?.toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                <Button 
-                  size="sm" 
-                  variant="outline" 
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setShowEditModal(true)}
                   className="absolute -bottom-2 -right-2 rounded-full w-8 h-8 p-0"
                 >
                   <Camera className="w-4 h-4" />
@@ -124,15 +130,32 @@ export const Profile = () => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="font-pretendard">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowEditModal(true)}
+                    className="font-pretendard"
+                  >
                     <Edit className="w-4 h-4 mr-2" />
                     프로필 편집
                   </Button>
-                  <Button variant="outline" size="sm" className="font-pretendard">
-                    <Settings className="w-4 h-4 mr-2" />
-                    설정
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="font-pretendard"
+                  >
+                    <Link to="/settings">
+                      <Settings className="w-4 h-4 mr-2" />
+                      설정
+                    </Link>
                   </Button>
-                  <Button variant="outline" size="sm" className="font-pretendard">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowShareModal(true)}
+                    className="font-pretendard"
+                  >
                     <Share className="w-4 h-4 mr-2" />
                     공유
                   </Button>
@@ -252,6 +275,19 @@ export const Profile = () => {
       </main>
 
       <Footer />
+
+      {/* Modals */}
+      <EditProfileModal
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        profile={profile}
+      />
+
+      <ShareProfileModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        profile={profile}
+      />
     </div>
   )
 }
