@@ -1,0 +1,17 @@
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <!-- Safari pinned tab icon - single color, simple design -->
+  <g fill="#000000">
+    <!-- Simplified sprout design for pinned tab -->
+    <!-- Main stem -->
+    <rect x="7" y="8" width="2" height="6" rx="1"/>
+    
+    <!-- Left leaf -->
+    <path d="M2 6 C2 5, 3 4, 5 4.5 C6 5.5, 7 6, 7 7.5 C6.5 8.5, 4 9, 2 7.5 Z"/>
+    
+    <!-- Right leaf -->
+    <path d="M14 6 C14 5, 13 4, 11 4.5 C10 5.5, 9 6, 9 7.5 C9.5 8.5, 12 9, 14 7.5 Z"/>
+    
+    <!-- Center bud -->
+    <circle cx="8" cy="5" r="1.5"/>
+  </g>
+</svg>

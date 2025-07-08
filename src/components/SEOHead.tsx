@@ -20,6 +20,7 @@ const DEFAULT_SEO = {
   description: '식물들의 특별한 순간을 기록하고 공유하는 소셜 플랫폼. 자연과 함께하는 일상을 나누고, 식물 친구들과 소통해보세요. 🌱',
   keywords: '식물, 플랜트그램, 식물키우기, 반려식물, 가드닝, 식물일기, 식물소통, 자연, 힐링, 그린라이프',
   image: 'https://aatto.kr/og-image.jpg',
+  kakaoImage: 'https://aatto.kr/kakao-share-image.jpg',
   url: 'https://aatto.kr/',
   type: 'website' as const,
   siteName: 'Plantgram',
@@ -90,7 +91,13 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="twitter:image:alt" content={seoTitle} />
       <meta name="twitter:creator" content={DEFAULT_SEO.twitterHandle} />
       <meta name="twitter:site" content={DEFAULT_SEO.twitterHandle} />
-      
+
+      {/* KakaoTalk */}
+      <meta property="kakao:title" content={seoTitle} />
+      <meta property="kakao:description" content={seoDescription} />
+      <meta property="kakao:image" content={DEFAULT_SEO.kakaoImage} />
+      <meta property="kakao:url" content={seoUrl} />
+
       {/* Canonical URL */}
       <link rel="canonical" href={seoUrl} />
       
