@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
+import { useProfile } from '@/hooks/useProfile'
 import { AuthModal } from '@/components/auth/AuthModal'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { MobileMenu } from '@/components/MobileMenu'
@@ -13,8 +14,17 @@ import { useToast } from '@/hooks/use-toast'
 
 export const Header: React.FC = () => {
   const { user, signOut, loading } = useAuth()
+  const { data: profile } = useProfile() // 프로필 정보 가져오기
   const { toast } = useToast()
   const [showAuthModal, setShowAuthModal] = useState(false)
+
+  // 프로필 정보 우선, 없으면 user_metadata 사용
+  const userInfo = {
+    username: profile?.username || user?.user_metadata?.username || user?.email?.split('@')[0] || '사용자',
+    fullName: profile?.full_name || user?.user_metadata?.full_name || user?.user_metadata?.username || '이름 없음',
+    avatarUrl: profile?.avatar_url || user?.user_metadata?.avatar_url,
+    email: user?.email
+  }
 
   const handleSignOut = async () => {
     await signOut()
@@ -120,13 +130,12 @@ export const Header: React.FC = () => {
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                       <Avatar className="h-8 w-8">
-                        <AvatarImage 
-                          src={user.user_metadata?.avatar_url} 
-                          alt={user.user_metadata?.username || user.email} 
+                        <AvatarImage
+                          src={userInfo.avatarUrl}
+                          alt={userInfo.username}
                         />
                         <AvatarFallback>
-                          {user.user_metadata?.username?.[0]?.toUpperCase() || 
-                           user.email?.[0]?.toUpperCase() || 'U'}
+                          {userInfo.username[0]?.toUpperCase() || 'U'}
                         </AvatarFallback>
                       </Avatar>
                     </Button>
@@ -135,10 +144,13 @@ export const Header: React.FC = () => {
                     <div className="flex items-center justify-start gap-2 p-2">
                       <div className="flex flex-col space-y-1 leading-none">
                         <p className="font-medium">
-                          {user.user_metadata?.username || '사용자'}
+                          {userInfo.fullName}
                         </p>
                         <p className="w-[200px] truncate text-sm text-muted-foreground">
-                          {user.email}
+                          @{userInfo.username}
+                        </p>
+                        <p className="w-[200px] truncate text-xs text-muted-foreground">
+                          {userInfo.email}
                         </p>
                       </div>
                     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
+import { useProfile } from '@/hooks/useProfile'
 import { shareNative, createAppShareOptions, isWebShareSupported } from '@/lib/share'
 import { Button } from '@/components/ui/button'
 import { 
@@ -29,11 +30,20 @@ import { AuthModal } from '@/components/auth/AuthModal'
 
 export const MobileMenu: React.FC = () => {
   const { user, signOut } = useAuth()
+  const { data: profile } = useProfile() // 프로필 정보 가져오기
   const { theme, setTheme } = useTheme()
   const { toast } = useToast()
   const location = useLocation()
   const [isOpen, setIsOpen] = useState(false)
   const [showAuthModal, setShowAuthModal] = useState(false)
+
+  // 프로필 정보 우선, 없으면 user_metadata 사용
+  const userInfo = {
+    username: profile?.username || user?.user_metadata?.username || user?.email?.split('@')[0] || '사용자',
+    fullName: profile?.full_name || user?.user_metadata?.full_name || user?.user_metadata?.username || '이름 없음',
+    avatarUrl: profile?.avatar_url || user?.user_metadata?.avatar_url,
+    email: user?.email
+  }
 
   const handleSignOut = async () => {
     try {
@@ -144,15 +154,17 @@ export const MobileMenu: React.FC = () => {
             <div className="p-6 border-b bg-muted/30">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-earth flex items-center justify-center text-white font-bold">
-                  {user.user_metadata?.username?.[0]?.toUpperCase() || 
-                   user.email?.[0]?.toUpperCase() || 'U'}
+                  {userInfo.username[0]?.toUpperCase() || 'U'}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-pretendard font-medium truncate">
-                    {user.user_metadata?.username || '사용자'}
+                    {userInfo.fullName}
                   </p>
                   <p className="font-pretendard text-sm text-muted-foreground truncate">
-                    {user.email}
+                    @{userInfo.username}
+                  </p>
+                  <p className="font-pretendard text-xs text-muted-foreground truncate">
+                    {userInfo.email}
                   </p>
                 </div>
               </div>

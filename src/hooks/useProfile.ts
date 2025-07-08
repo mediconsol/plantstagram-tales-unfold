@@ -75,10 +75,16 @@ export const useUpdateProfile = () => {
       return data as Profile
     },
     onSuccess: (data) => {
-      // Update the profile cache
+      // Update the profile cache immediately
       queryClient.setQueryData([QUERY_KEYS.PROFILE, user?.id], data)
-      // Invalidate related queries
+
+      // Invalidate all profile-related queries to ensure consistency
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.PROFILE] })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_STATS] })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_POSTS] })
+
+      // Force refetch for immediate UI update
+      queryClient.refetchQueries({ queryKey: [QUERY_KEYS.PROFILE, user?.id] })
     }
   })
 }
