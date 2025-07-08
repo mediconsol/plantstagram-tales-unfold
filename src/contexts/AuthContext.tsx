@@ -9,7 +9,7 @@ interface AuthContextType {
   signUp: (email: string, password: string, metadata?: any) => Promise<{ error: AuthError | null }>
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>
   signOut: () => Promise<{ error: AuthError | null }>
-  signInWithProvider: (provider: 'google' | 'github') => Promise<{ error: AuthError | null }>
+  signInWithProvider: (provider: 'google') => Promise<{ error: AuthError | null }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -89,7 +89,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return { error }
   }
 
-  const signInWithProvider = async (provider: 'google' | 'github') => {
+  const signInWithProvider = async (provider: 'google') => {
     setLoading(true)
     const { error } = await supabase.auth.signInWithOAuth({
       provider,

@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Loader2, Mail, Lock, User, Github } from 'lucide-react'
+import { Loader2, Mail, Lock, User } from 'lucide-react'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -79,7 +79,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     }
   }
 
-  const handleProviderSignIn = async (provider: 'google' | 'github') => {
+  const handleProviderSignIn = async (provider: 'google') => {
     setError(null)
     const { error } = await signInWithProvider(provider)
     if (error) {
@@ -230,27 +230,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             </TabsContent>
           </Tabs>
 
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">또는</span>
-              </div>
-            </div>
-            <div className="mt-4 space-y-2">
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => handleProviderSignIn('github')}
-                disabled={loading}
-              >
-                <Github className="mr-2 h-4 w-4" />
-                GitHub로 계속하기
-              </Button>
-            </div>
-          </div>
+
 
           <div className="mt-4 text-center">
             <Button variant="ghost" onClick={onClose}>
