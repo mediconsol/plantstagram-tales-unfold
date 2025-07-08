@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCreatePlantPost } from "@/hooks/usePlantPosts";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
+import { SEOHead, SEOPresets } from "@/components/SEOHead";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ImageUpload } from "@/components/ImageUpload";
@@ -105,6 +106,7 @@ export default function CreatePlantDay() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEOHead {...SEOPresets.create} />
       <Header />
 
       <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">

@@ -16,6 +16,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { Link } from 'react-router-dom'
 import { useScrollToTop } from '@/hooks/useScrollToTop'
+import { SEOHead, SEOPresets } from '@/components/SEOHead'
 
 const Gallery: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -108,6 +109,7 @@ const Gallery: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEOHead {...SEOPresets.gallery} />
       <Header />
 
       <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">

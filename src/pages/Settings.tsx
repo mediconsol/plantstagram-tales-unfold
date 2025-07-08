@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useTheme } from '@/contexts/ThemeContext'
 import { useScrollToTop } from '@/hooks/useScrollToTop'
+import { SEOHead, SEOPresets } from '@/components/SEOHead'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
@@ -109,8 +110,9 @@ export const Settings = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEOHead {...SEOPresets.settings} />
       <Header />
-      
+
       <main className="flex-1 container mx-auto px-4 py-8 pt-16 md:pt-20 max-w-4xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold font-pretendard mb-2">설정</h1>
