@@ -1,7 +1,7 @@
 import { PlantPost } from '@/types/database'
 import { commentsApi } from './api'
 import { generateOpenAIComment, isOpenAIConfigured } from './openai'
-import { supabase } from './supabase'
+import { supabase, supabaseAdmin } from './supabase'
 
 // AI Plant Persona User ID (matches database)
 export const AI_PLANT_PERSONA_ID = '00000000-0000-0000-0000-000000000001'
@@ -132,12 +132,17 @@ export const createAIComment = async (post: PlantPost): Promise<boolean> => {
       return true // Return true since comment already exists
     }
 
-    // Create comment
-    const result = await commentsApi.create({
-      post_id: post.id,
-      user_id: AI_PLANT_PERSONA_ID,
-      content: aiResponse
-    })
+    // Create comment using regular commentsApi but with current user context
+    // We'll temporarily use the current user's session to create the comment
+    const result = await supabase
+      .from('comments')
+      .insert({
+        post_id: post.id,
+        user_id: AI_PLANT_PERSONA_ID,
+        content: aiResponse
+      })
+      .select('*, profiles:user_id(id, username, full_name, avatar_url)')
+      .single()
 
     console.log('Comment creation result:', result)
 

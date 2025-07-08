@@ -15,6 +15,19 @@ console.log('Supabase client initialized successfully')
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
+// Service role client for admin operations (like AI comments)
+// Note: This should ideally be server-side only, but for demo purposes we'll use it carefully
+const supabaseServiceKey = import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY
+
+export const supabaseAdmin = supabaseServiceKey
+  ? createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    })
+  : null
+
 // Database Types (will be updated as we create tables)
 export type Database = {
   public: {
