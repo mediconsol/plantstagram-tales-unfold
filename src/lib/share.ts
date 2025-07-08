@@ -72,8 +72,8 @@ export const getSocialShareUrls = (options: ShareOptions) => {
 // 포스트 공유 옵션 생성
 export const createPostShareOptions = (post: PlantPost): ShareOptions => {
   const baseUrl = window.location.origin
-  const postUrl = `${baseUrl}/post/${post.id}` // 나중에 개별 포스트 페이지 구현 시 사용
-  
+  const postUrl = `${baseUrl}/post/${post.id}`
+
   return {
     title: `🌱 ${post.title}`,
     text: post.description || '식물과 함께하는 특별한 순간을 공유합니다!',

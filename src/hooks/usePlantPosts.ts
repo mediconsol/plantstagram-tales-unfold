@@ -21,6 +21,16 @@ export const usePlantPosts = (page = 0, limit = 10) => {
   })
 }
 
+// Get single plant post by ID
+export const usePlantPost = (id: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.PLANT_POSTS, id],
+    queryFn: () => plantPostsApi.getById(id),
+    enabled: !!id,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  })
+}
+
 // Get single plant post
 export const usePlantPost = (id: string) => {
   return useQuery({

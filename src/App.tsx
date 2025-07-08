@@ -12,6 +12,7 @@ import CreatePlantDay from "./pages/CreatePlantDay";
 import Gallery from "./pages/Gallery";
 import { Profile } from "./pages/Profile";
 import { Settings } from "./pages/Settings";
+import PostDetail from "./pages/PostDetail";
 import { FloatingActionButton } from "./components/FloatingActionButton";
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +34,7 @@ const App = () => (
                 <Route path="/create" element={<CreatePlantDay />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/post/:id" element={<PostDetail />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
