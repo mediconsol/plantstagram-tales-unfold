@@ -1,5 +1,6 @@
 import { PlantPost } from '@/types/database'
 import { commentsApi } from './api'
+import { generateOpenAIComment, isOpenAIConfigured } from './openai'
 
 // AI Plant Persona User ID (matches database)
 export const AI_PLANT_PERSONA_ID = '00000000-0000-0000-0000-000000000001'
@@ -49,10 +50,36 @@ const responseTemplates = {
   ]
 }
 
-// Analyze post content and generate appropriate response
-export const generateAIResponse = (post: PlantPost): string => {
+// Generate AI response using OpenAI or fallback to template-based responses
+export const generateAIResponse = async (post: PlantPost): Promise<string> => {
+  // Try OpenAI first if configured
+  if (isOpenAIConfigured()) {
+    try {
+      console.log('Generating AI response using OpenAI...')
+      const aiResponse = await generateOpenAIComment(
+        post.title,
+        post.description || '',
+        post.plant_type || undefined,
+        post.location || undefined
+      )
+      console.log('OpenAI response generated:', aiResponse)
+      return aiResponse
+    } catch (error) {
+      console.error('OpenAI failed, falling back to template responses:', error)
+      // Fall through to template-based responses
+    }
+  } else {
+    console.log('OpenAI not configured, using template responses')
+  }
+
+  // Fallback to template-based responses
+  return generateTemplateResponse(post)
+}
+
+// Original template-based response generation (now as fallback)
+export const generateTemplateResponse = (post: PlantPost): string => {
   const content = `${post.title} ${post.description || ''}`.toLowerCase()
-  
+
   // Check for specific keywords
   for (const [category, keywords] of Object.entries(plantKeywords)) {
     for (const keyword of keywords) {
@@ -62,7 +89,7 @@ export const generateAIResponse = (post: PlantPost): string => {
       }
     }
   }
-  
+
   // Check plant type for specific responses
   if (post.plant_type) {
     const plantType = post.plant_type.toLowerCase()
@@ -76,7 +103,7 @@ export const generateAIResponse = (post: PlantPost): string => {
       return "허브의 향긋한 향기가 여기까지 전해지는 것 같아요! 🌿 요리에도 쓰시나요? 정말 유용한 식물이에요!"
     }
   }
-  
+
   // Default response
   return responseTemplates.general[Math.floor(Math.random() * responseTemplates.general.length)]
 }
@@ -84,16 +111,16 @@ export const generateAIResponse = (post: PlantPost): string => {
 // Create AI comment for a post
 export const createAIComment = async (post: PlantPost): Promise<boolean> => {
   try {
-    // Generate AI response
-    const aiResponse = generateAIResponse(post)
-    
+    // Generate AI response (now async)
+    const aiResponse = await generateAIResponse(post)
+
     // Create comment
     const result = await commentsApi.create({
       post_id: post.id,
       user_id: AI_PLANT_PERSONA_ID,
       content: aiResponse
     })
-    
+
     return result.error === null
   } catch (error) {
     console.error('Error creating AI comment:', error)
