@@ -1,28 +1,26 @@
 import React, { useState } from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { usePlantPosts, useLikesCount, useComments } from '@/hooks/usePlantPosts'
-import { useAuth } from '@/contexts/AuthContext'
+import { usePlantPosts } from '@/hooks/usePlantPosts'
 import { PlantPost } from '@/types/database'
-import { plantTypes, getPlantTypeByName } from '@/data/plantTypes'
+import { plantTypes } from '@/data/plantTypes'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Heart, MessageCircle, Search, Filter, Grid, List, Loader2 } from 'lucide-react'
-import { formatDistanceToNow } from 'date-fns'
-import { ko } from 'date-fns/locale'
-import { Link } from 'react-router-dom'
+import { Search, Filter, Grid, List, Loader2 } from 'lucide-react'
 import { useScrollToTop } from '@/hooks/useScrollToTop'
 import { SEOHead, SEOPresets } from '@/components/SEOHead'
+import { PostDetailModal } from '@/components/PostDetailModal'
 
 const Gallery: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'popular'>('newest')
   const [filterBy, setFilterBy] = useState<string>('all')
+  const [selectedPost, setSelectedPost] = useState<PlantPost | null>(null)
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false)
 
   const { data, isLoading, error } = usePlantPosts(0, 50) // Load more posts for gallery
 
@@ -30,6 +28,17 @@ const Gallery: React.FC = () => {
 
   // Scroll to top when page loads
   useScrollToTop()
+
+  // Handle post click
+  const handlePostClick = (post: PlantPost) => {
+    setSelectedPost(post)
+    setIsDetailModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsDetailModalOpen(false)
+    setSelectedPost(null)
+  }
 
   // Filter and sort posts
   const filteredAndSortedPosts = React.useMemo(() => {
@@ -211,9 +220,9 @@ const Gallery: React.FC = () => {
             </p>
           </div>
         ) : viewMode === 'grid' ? (
-          <GalleryGrid posts={filteredAndSortedPosts} />
+          <GalleryGrid posts={filteredAndSortedPosts} onPostClick={handlePostClick} />
         ) : (
-          <GalleryList posts={filteredAndSortedPosts} />
+          <GalleryList posts={filteredAndSortedPosts} onPostClick={handlePostClick} />
         )}
 
         {/* Call to Action */}
@@ -230,36 +239,36 @@ const Gallery: React.FC = () => {
       </div>
 
       <Footer />
+
+      {/* Post Detail Modal */}
+      <PostDetailModal
+        post={selectedPost}
+        isOpen={isDetailModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   )
 }
 
 // Grid View Component
-const GalleryGrid: React.FC<{ posts: PlantPost[] }> = ({ posts }) => {
+const GalleryGrid: React.FC<{ posts: PlantPost[]; onPostClick: (post: PlantPost) => void }> = ({ posts, onPostClick }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {posts.map((post) => (
-        <GalleryGridItem key={post.id} post={post} />
+        <GalleryGridItem key={post.id} post={post} onClick={() => onPostClick(post)} />
       ))}
     </div>
   )
 }
 
-// Grid Item Component
-const GalleryGridItem: React.FC<{ post: PlantPost }> = ({ post }) => {
-  const { data: likesData } = useLikesCount(post.id)
-  const { data: commentsData } = useComments(post.id)
-
-  const likesCount = likesData?.data || 0
-  const commentsCount = commentsData?.count || 0
-
-  const timeAgo = formatDistanceToNow(new Date(post.created_at), {
-    addSuffix: true,
-    locale: ko,
-  })
-
+// Grid Item Component - Simplified
+const GalleryGridItem: React.FC<{ post: PlantPost; onClick: () => void }> = ({ post, onClick }) => {
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
+    <Card
+      className="overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer"
+      onClick={onClick}
+    >
+      {/* Image */}
       {post.image_url && (
         <div className="relative aspect-square overflow-hidden">
           <img
@@ -270,80 +279,52 @@ const GalleryGridItem: React.FC<{ post: PlantPost }> = ({ post }) => {
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
         </div>
       )}
+
+      {/* Content - Only Title and Author */}
       <CardContent className="p-4">
-        <div className="flex items-center gap-2 mb-2">
+        {/* Title */}
+        <h3 className="font-pretendard font-medium text-foreground mb-2 line-clamp-2">
+          {post.title}
+        </h3>
+
+        {/* Author */}
+        <div className="flex items-center gap-2">
           <Avatar className="w-6 h-6">
             <AvatarImage src={post.profiles?.avatar_url || undefined} />
             <AvatarFallback className="text-xs bg-gradient-earth text-white">
               {post.profiles?.username?.[0]?.toUpperCase() || '🌱'}
             </AvatarFallback>
           </Avatar>
-          <span className="text-xs text-muted-foreground font-pretendard">
+          <span className="text-sm text-muted-foreground font-pretendard">
             {post.profiles?.username || '익명'}
           </span>
-        </div>
-        
-        <h3 className="font-pretendard font-medium text-foreground mb-2 line-clamp-2">
-          {post.title}
-        </h3>
-        
-        {post.plant_type && (
-          <Badge variant="secondary" className="mb-2 text-xs">
-            <span className="mr-1">{getPlantTypeByName(post.plant_type)?.emoji || '🌱'}</span>
-            {post.plant_type}
-          </Badge>
-        )}
-        
-        <p className="text-sm text-muted-foreground font-pretendard line-clamp-2 mb-3">
-          {post.description}
-        </p>
-        
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span className="font-pretendard">{timeAgo}</span>
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1">
-              <Heart className="w-3 h-3" />
-              {likesCount}
-            </span>
-            <span className="flex items-center gap-1">
-              <MessageCircle className="w-3 h-3" />
-              {commentsCount}
-            </span>
-          </div>
         </div>
       </CardContent>
     </Card>
   )
 }
 
-// List View Component  
-const GalleryList: React.FC<{ posts: PlantPost[] }> = ({ posts }) => {
+// List View Component
+const GalleryList: React.FC<{ posts: PlantPost[]; onPostClick: (post: PlantPost) => void }> = ({ posts, onPostClick }) => {
   return (
     <div className="space-y-4">
       {posts.map((post) => (
-        <GalleryListItem key={post.id} post={post} />
+        <GalleryListItem key={post.id} post={post} onClick={() => onPostClick(post)} />
       ))}
     </div>
   )
 }
 
-// List Item Component
-const GalleryListItem: React.FC<{ post: PlantPost }> = ({ post }) => {
-  const { data: likesData } = useLikesCount(post.id)
-  const { data: commentsData } = useComments(post.id)
-
-  const likesCount = likesData?.data || 0
-  const commentsCount = commentsData?.count || 0
-
-  const timeAgo = formatDistanceToNow(new Date(post.created_at), {
-    addSuffix: true,
-    locale: ko,
-  })
-
+// List Item Component - Simplified
+const GalleryListItem: React.FC<{ post: PlantPost; onClick: () => void }> = ({ post, onClick }) => {
   return (
-    <Card className="hover:shadow-md transition-shadow duration-300">
+    <Card
+      className="hover:shadow-md transition-shadow duration-300 cursor-pointer"
+      onClick={onClick}
+    >
       <CardContent className="p-6">
         <div className="flex gap-4">
+          {/* Image */}
           {post.image_url && (
             <img
               src={post.image_url}
@@ -351,7 +332,10 @@ const GalleryListItem: React.FC<{ post: PlantPost }> = ({ post }) => {
               className="w-24 h-24 rounded-lg object-cover flex-shrink-0"
             />
           )}
+
+          {/* Content - Only Title and Author */}
           <div className="flex-1 min-w-0">
+            {/* Author */}
             <div className="flex items-center gap-2 mb-2">
               <Avatar className="w-6 h-6">
                 <AvatarImage src={post.profiles?.avatar_url || undefined} />
@@ -362,39 +346,12 @@ const GalleryListItem: React.FC<{ post: PlantPost }> = ({ post }) => {
               <span className="text-sm text-muted-foreground font-pretendard">
                 {post.profiles?.username || '익명'}
               </span>
-              <span className="text-xs text-muted-foreground">•</span>
-              <span className="text-xs text-muted-foreground font-pretendard">
-                {timeAgo}
-              </span>
-              {post.plant_type && (
-                <>
-                  <span className="text-xs text-muted-foreground">•</span>
-                  <Badge variant="secondary" className="text-xs">
-                    <span className="mr-1">{getPlantTypeByName(post.plant_type)?.emoji || '🌱'}</span>
-                    {post.plant_type}
-                  </Badge>
-                </>
-              )}
             </div>
-            
-            <h3 className="font-pretendard font-medium text-foreground mb-2">
+
+            {/* Title */}
+            <h3 className="font-pretendard font-medium text-foreground">
               {post.title}
             </h3>
-            
-            <p className="text-sm text-muted-foreground font-pretendard line-clamp-3 mb-3">
-              {post.description}
-            </p>
-            
-            <div className="flex items-center gap-4 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <Heart className="w-3 h-3" />
-                {likesCount}개의 좋아요
-              </span>
-              <span className="flex items-center gap-1">
-                <MessageCircle className="w-3 h-3" />
-                {commentsCount}개의 댓글
-              </span>
-            </div>
           </div>
         </div>
       </CardContent>
