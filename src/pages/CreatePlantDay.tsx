@@ -108,6 +108,24 @@ export default function CreatePlantDay() {
     }
   }
 
+  const handleTitleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault() // 엔터키 기본 동작 방지
+      // 다음 입력 필드(설명)로 포커스 이동
+      const descriptionTextarea = textareaRef.current
+      if (descriptionTextarea) {
+        descriptionTextarea.focus()
+      }
+    }
+  }
+
+  const handleLocationKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault() // 엔터키 기본 동작 방지
+      // 포커스를 제출 버튼으로 이동하거나 아무 동작 안함
+    }
+  }
+
   if (!user) {
     return null // Will redirect
   }
@@ -182,6 +200,7 @@ export default function CreatePlantDay() {
                   placeholder="오늘의 식물 이야기 제목을 입력하세요"
                   value={formData.title}
                   onChange={(e) => handleInputChange('title', e.target.value)}
+                  onKeyDown={handleTitleKeyDown}
                   disabled={isSubmitting}
                   className="font-pretendard w-full max-w-full box-border"
                   style={{ maxWidth: '100%', width: '100%' }}
@@ -259,6 +278,7 @@ export default function CreatePlantDay() {
                   placeholder="예: 거실 창가, 베란다, 정원 등"
                   value={formData.location}
                   onChange={(e) => handleInputChange('location', e.target.value)}
+                  onKeyDown={handleLocationKeyDown}
                   disabled={isSubmitting}
                   className="font-pretendard w-full max-w-full box-border"
                   style={{ maxWidth: '100%', width: '100%' }}

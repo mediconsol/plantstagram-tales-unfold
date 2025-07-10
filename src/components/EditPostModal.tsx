@@ -111,6 +111,23 @@ export const EditPostModal: React.FC<EditPostModalProps> = ({
     }
   }
 
+  const handleTitleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault() // 엔터키 기본 동작 방지
+      // 다음 입력 필드(설명)로 포커스 이동
+      const descriptionTextarea = textareaRef.current
+      if (descriptionTextarea) {
+        descriptionTextarea.focus()
+      }
+    }
+  }
+
+  const handleLocationKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault() // 엔터키 기본 동작 방지
+    }
+  }
+
   const handleClose = () => {
     if (isSubmitting) return
     onClose()
@@ -150,6 +167,7 @@ export const EditPostModal: React.FC<EditPostModalProps> = ({
               placeholder="포스트 제목을 입력하세요"
               value={formData.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
+              onKeyDown={handleTitleKeyDown}
               disabled={isSubmitting}
               className="font-pretendard"
             />
@@ -208,6 +226,7 @@ export const EditPostModal: React.FC<EditPostModalProps> = ({
               placeholder="예: 거실 창가, 베란다, 정원 등"
               value={formData.location}
               onChange={(e) => handleInputChange('location', e.target.value)}
+              onKeyDown={handleLocationKeyDown}
               disabled={isSubmitting}
               className="font-pretendard"
             />

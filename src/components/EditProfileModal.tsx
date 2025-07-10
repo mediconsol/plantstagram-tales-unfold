@@ -148,6 +148,28 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
     }
   }
 
+  const handleUsernameKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault() // 엔터키 기본 동작 방지
+      // 다음 입력 필드(이름)로 포커스 이동
+      const fullNameInput = document.getElementById('full_name') as HTMLInputElement
+      if (fullNameInput) {
+        fullNameInput.focus()
+      }
+    }
+  }
+
+  const handleFullNameKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault() // 엔터키 기본 동작 방지
+      // 다음 입력 필드(소개)로 포커스 이동
+      const bioTextarea = textareaRef.current
+      if (bioTextarea) {
+        bioTextarea.focus()
+      }
+    }
+  }
+
   const handleClose = () => {
     if (isSubmitting) return
     setAvatarFile(null)
@@ -210,6 +232,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 id="username"
                 value={formData.username}
                 onChange={(e) => handleInputChange('username', e.target.value)}
+                onKeyDown={handleUsernameKeyDown}
                 placeholder="사용자명을 입력하세요"
                 disabled={isSubmitting}
                 className="font-pretendard"
@@ -225,6 +248,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 id="full_name"
                 value={formData.full_name}
                 onChange={(e) => handleInputChange('full_name', e.target.value)}
+                onKeyDown={handleFullNameKeyDown}
                 placeholder="이름을 입력하세요"
                 disabled={isSubmitting}
                 className="font-pretendard"
