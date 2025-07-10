@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useUpdateProfile, useUploadAvatar, Profile } from '@/hooks/useProfile'
+import { useAutoResize } from '@/hooks/useAutoResize'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -52,6 +53,13 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+
+  // Auto-resize textarea hook
+  const { textareaRef } = useAutoResize({
+    minHeight: 80, // min-h-20
+    maxHeight: 120, // Maximum height for bio
+    value: formData.bio
+  })
 
   const validateForm = (): boolean => {
     const newErrors: Partial<ProfileFormData> = {}
@@ -230,12 +238,13 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
               <Label htmlFor="bio" className="font-pretendard">소개</Label>
               <div className="w-full overflow-hidden">
                 <Textarea
+                  ref={textareaRef}
                   id="bio"
                   value={formData.bio}
                   onChange={(e) => handleInputChange('bio', e.target.value)}
                   placeholder="자신을 소개해보세요"
                   disabled={isSubmitting}
-                  className="min-h-20 font-pretendard w-full max-w-full box-border resize-none"
+                  className="font-pretendard w-full max-w-full box-border resize-none transition-all duration-200 ease-in-out"
                   maxLength={150}
                   style={{
                     maxWidth: '100%',
@@ -246,7 +255,9 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                     fontSize: '16px',
                     transform: 'scale(1)',
                     transformOrigin: 'top left',
-                    zoom: '1'
+                    zoom: '1',
+                    minHeight: '80px',
+                    height: '80px'
                   }}
                 />
               </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { PlantPost } from '@/types/database'
 import { useUpdatePlantPost } from '@/hooks/usePlantPosts'
+import { useAutoResize } from '@/hooks/useAutoResize'
 import { PlantTypeSelector } from './PlantTypeSelector'
 import { ImageUpload } from './ImageUpload'
 import { Button } from '@/components/ui/button'
@@ -45,6 +46,13 @@ export const EditPostModal: React.FC<EditPostModalProps> = ({
     image_url: post.image_url || '',
     plant_type: post.plant_type || '',
     location: post.location || ''
+  })
+
+  // Auto-resize textarea hook
+  const { textareaRef } = useAutoResize({
+    minHeight: 96, // min-h-24
+    maxHeight: 200, // Maximum height before scrolling
+    value: formData.description
   })
 
   const [errors, setErrors] = useState<Partial<EditFormData>>({})
@@ -155,12 +163,13 @@ export const EditPostModal: React.FC<EditPostModalProps> = ({
             <Label htmlFor="edit-description" className="font-pretendard">설명</Label>
             <div className="w-full overflow-hidden">
               <Textarea
+                ref={textareaRef}
                 id="edit-description"
                 placeholder="식물과 함께한 특별한 순간을 자세히 들려주세요..."
                 value={formData.description}
                 onChange={(e) => handleInputChange('description', e.target.value)}
                 disabled={isSubmitting}
-                className="min-h-24 font-pretendard w-full max-w-full box-border resize-none"
+                className="font-pretendard w-full max-w-full box-border resize-none transition-all duration-200 ease-in-out"
                 style={{
                   maxWidth: '100%',
                   width: '100%',
@@ -170,7 +179,9 @@ export const EditPostModal: React.FC<EditPostModalProps> = ({
                   fontSize: '16px',
                   transform: 'scale(1)',
                   transformOrigin: 'top left',
-                  zoom: '1'
+                  zoom: '1',
+                  minHeight: '96px',
+                  height: '96px'
                 }}
               />
             </div>

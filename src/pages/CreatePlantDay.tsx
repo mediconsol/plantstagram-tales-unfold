@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCreatePlantPost } from "@/hooks/usePlantPosts";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
+import { useAutoResize } from "@/hooks/useAutoResize";
 import { SEOHead, SEOPresets } from "@/components/SEOHead";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -41,6 +42,13 @@ export default function CreatePlantDay() {
   })
   const [errors, setErrors] = useState<Partial<PostFormData>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Auto-resize textarea hook
+  const { textareaRef } = useAutoResize({
+    minHeight: 96, // 24 * 4 = 96px (min-h-24)
+    maxHeight: 200, // Maximum height before scrolling
+    value: formData.description
+  })
 
   // Redirect if not authenticated
   React.useEffect(() => {
@@ -193,12 +201,13 @@ export default function CreatePlantDay() {
             <CardContent className="overflow-hidden">
               <div className="w-full overflow-hidden">
                 <Textarea
+                  ref={textareaRef}
                   placeholder="식물과 함께한 특별한 순간을 자세히 들려주세요...
 예: 오늘 새싹이 돋아났어요! 정말 신기하고 감동적이었습니다. #새싹 #성장 #감동"
                   value={formData.description}
                   onChange={(e) => handleInputChange('description', e.target.value)}
                   disabled={isSubmitting}
-                  className="w-full min-h-24 sm:min-h-32 font-pretendard resize-none border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 max-w-full box-border"
+                  className="w-full font-pretendard resize-none border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 max-w-full box-border transition-all duration-200 ease-in-out"
                   style={{
                     maxWidth: '100%',
                     width: '100%',
@@ -208,7 +217,9 @@ export default function CreatePlantDay() {
                     fontSize: '16px',
                     transform: 'scale(1)',
                     transformOrigin: 'top left',
-                    zoom: '1'
+                    zoom: '1',
+                    minHeight: '96px',
+                    height: '96px'
                   }}
                 />
               </div>
