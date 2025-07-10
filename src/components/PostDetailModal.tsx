@@ -40,9 +40,12 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
 
   if (!post) return null
 
-  const plantType = getPlantTypeByName(post.plant_type || '')
+  // Safe data extraction with fallbacks
+  const plantType = post.plant_type ? getPlantTypeByName(post.plant_type) : null
   const likesCount = likesData?.count || 0
   const commentsCount = commentsData?.length || 0
+  const authorName = post.profiles?.username || '익명'
+  const authorAvatar = post.profiles?.avatar_url || ''
 
   const handleLike = () => {
     if (!user) return
@@ -77,14 +80,14 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
             <DialogHeader className="p-6 pb-4 border-b">
               <div className="flex items-center gap-3">
                 <Avatar className="w-10 h-10">
-                  <AvatarImage src={post.profiles?.avatar_url || ''} />
+                  <AvatarImage src={authorAvatar} />
                   <AvatarFallback className="bg-gradient-earth text-white">
-                    {post.profiles?.username?.[0]?.toUpperCase() || 'U'}
+                    {authorName[0]?.toUpperCase() || 'U'}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
                   <DialogTitle className="font-pretendard text-lg">
-                    {post.profiles?.username || 'Unknown User'}
+                    {authorName}
                   </DialogTitle>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="w-3 h-3" />
@@ -114,7 +117,7 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium">식물 종류:</span>
                   <Badge variant="secondary" className="font-pretendard">
-                    {plantType?.icon} {plantType?.name || post.plant_type}
+                    {plantType?.emoji || '🌱'} {plantType?.name || post.plant_type}
                   </Badge>
                 </div>
               )}

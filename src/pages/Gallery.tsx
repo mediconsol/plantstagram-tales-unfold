@@ -26,6 +26,31 @@ const Gallery: React.FC = () => {
 
   const posts = data?.data || []
 
+  // Error handling
+  if (error) {
+    console.error('Gallery error:', error)
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <SEOHead {...SEOPresets.gallery} />
+        <Header />
+        <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              페이지를 불러오는 중 오류가 발생했습니다
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              페이지를 새로고침하거나 잠시 후 다시 시도해주세요.
+            </p>
+            <Button onClick={() => window.location.reload()}>
+              페이지 새로고침
+            </Button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    )
+  }
+
   // Scroll to top when page loads
   useScrollToTop()
 
@@ -42,6 +67,8 @@ const Gallery: React.FC = () => {
 
   // Filter and sort posts
   const filteredAndSortedPosts = React.useMemo(() => {
+    if (!posts || posts.length === 0) return []
+
     let filtered = posts
 
     // Search filter
