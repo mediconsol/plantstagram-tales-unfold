@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PlantPost } from '@/types/database'
-import { useComments, useLikesCount } from '@/hooks/usePlantPosts'
+import { useComments, useLikesCount, useToggleLike } from '@/hooks/usePlantPosts'
 import { useAuth } from '@/contexts/AuthContext'
 import { getPlantTypeByName } from '@/data/plantTypes'
 import { formatDistanceToNow } from 'date-fns'
@@ -14,10 +14,9 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Heart, MessageCircle, MapPin, Calendar, X } from 'lucide-react'
+import { Heart, MessageCircle, MapPin, Calendar, X, Share } from 'lucide-react'
 import { CommentSection } from '@/components/CommentSection'
-import { LikeButton } from '@/components/LikeButton'
-import { ShareButton } from '@/components/ShareButton'
+import { ShareModal } from '@/components/ShareModal'
 
 interface PostDetailModalProps {
   post: PlantPost | null
@@ -33,12 +32,23 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
   const { user } = useAuth()
   const { data: likesData } = useLikesCount(post?.id || '')
   const { data: commentsData } = useComments(post?.id || '')
+  const toggleLikeMutation = useToggleLike()
+
+  const [isLiked, setIsLiked] = useState(false)
+  const [showComments, setShowComments] = useState(true)
+  const [showShareModal, setShowShareModal] = useState(false)
 
   if (!post) return null
 
   const plantType = getPlantTypeByName(post.plant_type || '')
   const likesCount = likesData?.count || 0
   const commentsCount = commentsData?.length || 0
+
+  const handleLike = () => {
+    if (!user) return
+    setIsLiked(!isLiked)
+    toggleLikeMutation.mutate({ postId: post.id })
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -119,26 +129,67 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
 
               {/* Actions */}
               <div className="flex items-center gap-4 pt-4 border-t">
-                <LikeButton 
-                  postId={post.id} 
-                  initialLiked={false}
-                  showCount={true}
-                />
-                <div className="flex items-center gap-1 text-muted-foreground">
-                  <MessageCircle className="w-5 h-5" />
+                {/* Like Button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleLike}
+                  disabled={!user || toggleLikeMutation.isPending}
+                  className={`flex items-center gap-2 transition-colors p-0 ${
+                    isLiked
+                      ? 'text-red-500 hover:text-red-600'
+                      : 'text-muted-foreground hover:text-red-500'
+                  }`}
+                >
+                  <Heart className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
+                  <span className="text-sm font-pretendard">{likesCount}</span>
+                </Button>
+
+                {/* Comments Button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowComments(!showComments)}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors p-0"
+                >
+                  <MessageCircle className={`w-5 h-5 ${showComments ? 'fill-current text-primary' : ''}`} />
                   <span className="text-sm font-pretendard">{commentsCount}</span>
-                </div>
-                <ShareButton post={post} />
+                </Button>
+
+                {/* Share Button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowShareModal(true)}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors p-0"
+                >
+                  <Share className="w-5 h-5" />
+                </Button>
               </div>
             </div>
 
             {/* Comments Section */}
-            <div className="border-t">
-              <CommentSection postId={post.id} />
-            </div>
+            {showComments && (
+              <div className="border-t">
+                <CommentSection
+                  postId={post.id}
+                  isOpen={showComments}
+                  onToggle={() => setShowComments(!showComments)}
+                />
+              </div>
+            )}
           </div>
         </div>
       </DialogContent>
+
+      {/* Share Modal */}
+      {showShareModal && (
+        <ShareModal
+          post={post}
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+        />
+      )}
     </Dialog>
   )
 }
