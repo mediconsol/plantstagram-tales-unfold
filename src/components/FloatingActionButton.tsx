@@ -41,7 +41,7 @@ export const FloatingActionButton: React.FC = () => {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 md:hidden">
+    <div className="fixed z-50 md:hidden floating-safe-area">
       <Link to="/create">
         <Button
           size="lg"
@@ -146,7 +146,7 @@ export const ExpandableFloatingActionButton: React.FC = () => {
   ]
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 md:hidden">
+    <div className="fixed z-50 md:hidden floating-safe-area">
       {/* Backdrop */}
       {isExpanded && (
         <div className="fixed inset-0 bg-black/20 -z-10" />

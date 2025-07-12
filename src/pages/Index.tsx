@@ -10,12 +10,14 @@ const Index = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead {...SEOPresets.home} />
       <Header />
-      <HeroSection />
-      <div className="container mx-auto px-4 py-12">
-        <PlantPostsFeed />
+      <div className="body-safe-area">
+        <HeroSection />
+        <div className="container mx-auto px-4 py-12 safe-area-left safe-area-right">
+          <PlantPostsFeed />
+        </div>
+        <ReflectionSection />
+        <Footer />
       </div>
-      <ReflectionSection />
-      <Footer />
     </div>
   );
 };
