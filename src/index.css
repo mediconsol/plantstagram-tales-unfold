@@ -243,28 +243,28 @@
 
   /* 헤더 전용 safe area - 전체 상단 영역 덮기 */
   .header-safe-area {
-    padding-top: max(env(safe-area-inset-top), 0.75rem);
-    /* 상단 safe area까지 완전히 덮기 위한 추가 스타일 */
+    /* 상단 safe area를 포함한 패딩 */
+    padding-top: env(safe-area-inset-top);
+    /* 기본 헤더 패딩 추가 */
+    padding-top: calc(env(safe-area-inset-top) + 0.75rem);
+    /* 좌우 safe area도 적용 */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    /* 완전한 배경 적용 */
     background: hsl(var(--background));
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  }
-
-  /* 헤더 배경 확장 - safe area 영역까지 완전히 덮기 */
-  .header-safe-area::before {
-    content: '';
-    position: absolute;
-    top: calc(-1 * env(safe-area-inset-top));
-    left: 0;
-    right: 0;
-    height: env(safe-area-inset-top);
-    background: hsl(var(--background));
-    z-index: -1;
+    /* 상단 끝까지 확장 */
+    margin-top: calc(-1 * env(safe-area-inset-top));
+    padding-top: calc(env(safe-area-inset-top) + 0.75rem);
   }
 
   /* 바디 전용 safe area - 헤더 높이 + safe area 고려 */
   .body-safe-area {
-    padding-top: calc(max(env(safe-area-inset-top), 0.75rem) + 4rem); /* 헤더 safe area + 헤더 높이 64px */
+    /* 헤더의 전체 높이 = safe-area-inset-top + 0.75rem + 4rem(헤더 콘텐츠) */
+    padding-top: calc(env(safe-area-inset-top) + 0.75rem + 4rem);
     padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   /* 플로팅 버튼 safe area */

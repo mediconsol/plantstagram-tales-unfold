@@ -12,7 +12,7 @@ const Index = () => {
       <Header />
       <div className="body-safe-area">
         <HeroSection />
-        <div className="container mx-auto px-4 py-12 safe-area-left safe-area-right">
+        <div className="container mx-auto px-4 py-12">
           <PlantPostsFeed />
         </div>
         <ReflectionSection />
