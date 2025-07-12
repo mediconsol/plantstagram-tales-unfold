@@ -44,7 +44,7 @@ export const Profile = () => {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-6 md:px-4 py-8">
+        <div className="page-container">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">로그인이 필요합니다</h1>
             <p className="text-muted-foreground">프로필을 보려면 먼저 로그인해주세요.</p>
@@ -78,7 +78,7 @@ export const Profile = () => {
       <SEOHead {...SEOPresets.profile} />
       <Header />
       
-      <main className="flex-1 container mx-auto px-6 md:px-4 py-8 pt-16 md:pt-20">
+      <main className="flex-1 page-container pt-16 md:pt-20">
         {/* Profile Header */}
         <Card className="mb-8">
           <CardContent className="pt-6">
