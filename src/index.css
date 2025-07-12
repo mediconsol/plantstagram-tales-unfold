@@ -241,14 +241,29 @@
     padding-right: env(safe-area-inset-right);
   }
 
-  /* 헤더 전용 safe area */
+  /* 헤더 전용 safe area - 전체 상단 영역 덮기 */
   .header-safe-area {
     padding-top: max(env(safe-area-inset-top), 0.75rem);
+    /* 상단 safe area까지 완전히 덮기 위한 추가 스타일 */
+    background: hsl(var(--background));
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+
+  /* 헤더 배경 확장 - safe area 영역까지 완전히 덮기 */
+  .header-safe-area::before {
+    content: '';
+    position: absolute;
+    top: calc(-1 * env(safe-area-inset-top));
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background: hsl(var(--background));
+    z-index: -1;
   }
 
   /* 바디 전용 safe area - 헤더 높이 + safe area 고려 */
   .body-safe-area {
-    padding-top: calc(env(safe-area-inset-top) + 4rem); /* 헤더 높이 64px + safe area */
+    padding-top: calc(max(env(safe-area-inset-top), 0.75rem) + 4rem); /* 헤더 safe area + 헤더 높이 64px */
     padding-bottom: env(safe-area-inset-bottom);
   }
 
