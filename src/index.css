@@ -241,27 +241,27 @@
     padding-right: env(safe-area-inset-right);
   }
 
-  /* 헤더 전용 safe area - 전체 상단 영역 덮기 */
+  /* 헤더 전용 safe area - 배경은 전체 덮기, 콘텐츠는 safe area 고려 */
   .header-safe-area {
-    /* 상단 safe area를 포함한 패딩 */
+    /* 상단 safe area만큼 패딩 (배경용) */
     padding-top: env(safe-area-inset-top);
-    /* 기본 헤더 패딩 추가 */
-    padding-top: calc(env(safe-area-inset-top) + 0.75rem);
-    /* 좌우 safe area도 적용 */
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
     /* 완전한 배경 적용 */
     background: hsl(var(--background));
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    /* 상단 끝까지 확장 */
-    margin-top: calc(-1 * env(safe-area-inset-top));
-    padding-top: calc(env(safe-area-inset-top) + 0.75rem);
+  }
+
+  /* 헤더 콘텐츠 컨테이너 - safe area 고려한 실제 콘텐츠 위치 */
+  .header-content {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: max(env(safe-area-inset-left), 1rem);
+    padding-right: max(env(safe-area-inset-right), 1rem);
   }
 
   /* 바디 전용 safe area - 헤더 높이 + safe area 고려 */
   .body-safe-area {
-    /* 헤더의 전체 높이 = safe-area-inset-top + 0.75rem + 4rem(헤더 콘텐츠) */
-    padding-top: calc(env(safe-area-inset-top) + 0.75rem + 4rem);
+    /* 헤더의 전체 높이 = safe-area-inset-top + 0.75rem(상단패딩) + 3rem(콘텐츠) + 0.75rem(하단패딩) */
+    padding-top: calc(env(safe-area-inset-top) + 5.5rem);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
