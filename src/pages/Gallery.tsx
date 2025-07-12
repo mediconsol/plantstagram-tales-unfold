@@ -151,7 +151,7 @@ const Gallery: React.FC = () => {
 
       <div className="page-container flex-1 body-safe-area">
         {/* Page Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 mt-12">
           <h1 className="text-4xl font-pretendard font-bold text-foreground mb-4">
             🌱 식물들의 하루
           </h1>
