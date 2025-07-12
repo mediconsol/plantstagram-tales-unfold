@@ -34,7 +34,7 @@ const Gallery: React.FC = () => {
       <div className="min-h-screen bg-background flex flex-col">
         <SEOHead {...SEOPresets.gallery} />
         <Header />
-        <div className="page-container flex-1 body-safe-area">
+        <div className="page-container flex-1">
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-foreground mb-4">
               페이지를 불러오는 중 오류가 발생했습니다
@@ -149,7 +149,7 @@ const Gallery: React.FC = () => {
       <SEOHead {...SEOPresets.gallery} />
       <Header />
 
-      <div className="page-container flex-1 body-safe-area">
+      <div className="page-container flex-1">
         {/* Page Header */}
         <div className="text-center mb-8 mt-12">
           <h1 className="text-4xl font-pretendard font-bold text-foreground mb-4">

@@ -307,8 +307,8 @@
     margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    padding-top: 3rem;     /* 48px - 페이지 상단 여백 */
-    padding-bottom: 3rem;  /* 48px - 페이지 하단 여백 */
+    padding-top: calc(env(safe-area-inset-top) + 5.5rem + 3rem); /* safe area + 헤더 높이 + 여백 */
+    padding-bottom: calc(env(safe-area-inset-bottom) + 3rem);    /* safe area + 하단 여백 */
     max-width: 1200px;
   }
 
