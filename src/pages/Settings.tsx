@@ -60,7 +60,7 @@ export const Settings = () => {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-6 md:px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4">로그인이 필요합니다</h1>
             <p className="text-muted-foreground">설정을 변경하려면 먼저 로그인해주세요.</p>
@@ -113,7 +113,7 @@ export const Settings = () => {
       <SEOHead {...SEOPresets.settings} />
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 py-8 pt-16 md:pt-20 max-w-4xl">
+      <main className="flex-1 container mx-auto px-6 md:px-4 py-8 pt-16 md:pt-20 max-w-4xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold font-pretendard mb-2">설정</h1>
           <p className="text-muted-foreground font-pretendard">
