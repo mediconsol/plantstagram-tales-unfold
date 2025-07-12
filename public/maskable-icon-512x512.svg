@@ -1,0 +1,38 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </radialGradient>
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="#22c55e"/>
+  
+  <g transform="translate(51.2, 51.2)">
+    <circle cx="204.8" cy="204.8" r="204.8" fill="url(#bgGradient)"/>
+
+    <!-- Sprout/seedling icon -->
+    <g transform="translate(76.80000000000001, 51.2)">
+      <!-- Stem -->
+      <rect x="115.2" y="179.20000000000002" width="25.6" height="128" fill="#15803d" rx="12.8"/>
+
+      <!-- Left leaf (larger) -->
+      <path d="M38.400000000000006 128 C38.400000000000006 102.4, 76.80000000000001 76.80000000000001, 128 115.2 C128 153.60000000000002, 89.60000000000001 179.20000000000002, 38.400000000000006 153.60000000000002 Z" fill="url(#leafGradient)"/>
+
+      <!-- Right leaf (larger) -->
+      <path d="M217.60000000000002 128 C217.60000000000002 102.4, 179.20000000000002 76.80000000000001, 128 115.2 C128 153.60000000000002, 166.4 179.20000000000002, 217.60000000000002 153.60000000000002 Z" fill="#16a34a"/>
+
+      <!-- Small leaves on stem -->
+      <ellipse cx="102.4" cy="204.8" rx="19.200000000000003" ry="10.240000000000002" fill="#22c55e" transform="rotate(-30 102.4 204.8)"/>
+      <ellipse cx="153.60000000000002" cy="230.4" rx="19.200000000000003" ry="10.240000000000002" fill="#22c55e" transform="rotate(30 153.60000000000002 230.4)"/>
+
+      <!-- Center bud -->
+      <circle cx="128" cy="115.2" r="23.040000000000003" fill="#15803d"/>
+      <circle cx="128" cy="115.2" r="12.8" fill="#34d399"/>
+    </g>
+  </g>
+</svg>

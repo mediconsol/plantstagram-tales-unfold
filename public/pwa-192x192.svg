@@ -1,0 +1,38 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </radialGradient>
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+  </defs>
+
+  
+  
+  <g transform="translate(0, 0)">
+    <circle cx="96" cy="96" r="96" fill="url(#bgGradient)"/>
+
+    <!-- Sprout/seedling icon -->
+    <g transform="translate(36, 24)">
+      <!-- Stem -->
+      <rect x="54" y="84" width="12" height="60" fill="#15803d" rx="6"/>
+
+      <!-- Left leaf (larger) -->
+      <path d="M18 60 C18 48, 36 36, 60 54 C60 72, 42 84, 18 72 Z" fill="url(#leafGradient)"/>
+
+      <!-- Right leaf (larger) -->
+      <path d="M102 60 C102 48, 84 36, 60 54 C60 72, 78 84, 102 72 Z" fill="#16a34a"/>
+
+      <!-- Small leaves on stem -->
+      <ellipse cx="48" cy="96" rx="9" ry="4.800000000000001" fill="#22c55e" transform="rotate(-30 48 96)"/>
+      <ellipse cx="72" cy="108" rx="9" ry="4.800000000000001" fill="#22c55e" transform="rotate(30 72 108)"/>
+
+      <!-- Center bud -->
+      <circle cx="60" cy="54" r="10.8" fill="#15803d"/>
+      <circle cx="60" cy="54" r="6" fill="#34d399"/>
+    </g>
+  </g>
+</svg>
