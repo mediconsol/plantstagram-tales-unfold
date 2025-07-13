@@ -241,22 +241,7 @@
     padding-right: env(safe-area-inset-right);
   }
 
-  /* 헤더 전용 safe area - 배경은 전체 덮기, 콘텐츠는 safe area 고려 */
-  .header-safe-area {
-    /* 상단 safe area만큼 패딩 (배경용) */
-    padding-top: env(safe-area-inset-top);
-    /* 완전한 배경 적용 */
-    background: hsl(var(--background));
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  }
 
-  /* 헤더 콘텐츠 컨테이너 - safe area 고려한 실제 콘텐츠 위치 */
-  .header-content {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    padding-left: max(env(safe-area-inset-left), 1rem);
-    padding-right: max(env(safe-area-inset-right), 1rem);
-  }
 
   /* 바디 전용 safe area - 헤더 높이 + safe area 고려 */
   .body-safe-area {

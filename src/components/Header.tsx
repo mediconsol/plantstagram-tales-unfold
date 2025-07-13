@@ -67,8 +67,8 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b border-border header-safe-area">
-        <div className="container mx-auto flex items-center justify-between header-content md:py-6">
+      <header className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Mobile Menu */}
           <MobileMenu />
           {/* Logo */}
