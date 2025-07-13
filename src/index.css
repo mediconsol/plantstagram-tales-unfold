@@ -258,14 +258,6 @@
     padding-right: max(env(safe-area-inset-right), 1rem);
   }
 
-  /* 데스크탑에서 헤더 높이 증가 */
-  @media (min-width: 768px) {
-    .header-content {
-      padding-top: 1.375rem;  /* 0.75rem + 0.625rem (10px) */
-      padding-bottom: 1.375rem; /* 0.75rem + 0.625rem (10px) */
-    }
-  }
-
   /* 바디 전용 safe area - 헤더 높이 + safe area 고려 */
   .body-safe-area {
     /* 헤더의 전체 높이 = safe-area-inset-top + 0.75rem(상단패딩) + 3rem(콘텐츠) + 0.75rem(하단패딩) */
@@ -283,25 +275,22 @@
 
   /* 데스크탑 여백 최적화 시스템 */
 
-  /* 섹션간 여백 확대 - 헤더 높이 고려 */
+  /* 섹션간 여백 확대 - 원래 상태로 복원 */
   .section-spacing {
-    /* 모바일: 헤더 아래 적절한 여백 */
-    padding-top: calc(env(safe-area-inset-top) + 6rem);
+    padding-top: 3rem;    /* 48px - 모바일 기본 */
     padding-bottom: 3rem; /* 48px */
   }
 
   @media (min-width: 768px) {
     .section-spacing {
-      /* 데스크탑: 증가된 헤더 높이 + 여백 */
-      padding-top: calc(env(safe-area-inset-top) + 8rem);
+      padding-top: 4rem;    /* 64px - 태블릿 */
       padding-bottom: 4rem; /* 64px */
     }
   }
 
   @media (min-width: 1024px) {
     .section-spacing {
-      /* 큰 데스크탑: 더 넉넉한 여백 */
-      padding-top: calc(env(safe-area-inset-top) + 8rem);
+      padding-top: 6rem;    /* 96px - 데스크탑 */
       padding-bottom: 6rem; /* 96px */
     }
   }
