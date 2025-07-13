@@ -1,9 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { ShareAppModal } from "./ShareAppModal";
+import { AuthModal } from "./auth/AuthModal";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const ReflectionSection = () => {
+  const { user } = useAuth();
   const [showShareModal, setShowShareModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const handleRecordClick = () => {
+    if (user) {
+      // 로그인된 사용자는 포스트 작성 페이지로
+      window.location.href = '/create';
+    } else {
+      // 로그인되지 않은 사용자는 로그인 모달 표시
+      setShowAuthModal(true);
+    }
+  };
+
   return (
     <section className="py-20 px-6 bg-gradient-forest">
       <div className="max-w-4xl mx-auto text-center">
@@ -33,11 +47,12 @@ export const ReflectionSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            <Link to="/create">
-              <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg shadow-natural hover:shadow-glow transition-all duration-300">
-                나의 하루 기록하기 ✨
-              </button>
-            </Link>
+            <button
+              onClick={handleRecordClick}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg shadow-natural hover:shadow-glow transition-all duration-300"
+            >
+              나의 하루 기록하기 ✨
+            </button>
             <button
               onClick={() => setShowShareModal(true)}
               className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-pretendard font-medium px-8 py-4 rounded-full text-lg transition-all duration-300"
@@ -60,6 +75,12 @@ export const ReflectionSection = () => {
       <ShareAppModal
         isOpen={showShareModal}
         onClose={() => setShowShareModal(false)}
+      />
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
       />
     </section>
   );
