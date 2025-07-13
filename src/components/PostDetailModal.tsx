@@ -43,7 +43,7 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
   // Safe data extraction with fallbacks
   const plantType = post.plant_type ? getPlantTypeByName(post.plant_type) : null
   const likesCount = likesData?.count || 0
-  const commentsCount = commentsData?.length || 0
+  const commentsCount = commentsData?.count || commentsData?.length || 0
   const authorName = post.profiles?.username || '익명'
   const authorAvatar = post.profiles?.avatar_url || ''
 
@@ -173,7 +173,7 @@ export const PostDetailModal: React.FC<PostDetailModalProps> = ({
 
             {/* Comments Section */}
             {showComments && (
-              <div className="border-t">
+              <div className="border-t ml-6 mr-6">
                 <CommentSection
                   postId={post.id}
                   isOpen={showComments}
