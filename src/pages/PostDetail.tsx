@@ -56,7 +56,7 @@ const PostDetail: React.FC = () => {
       <div className="min-h-screen bg-background flex flex-col">
         <SEOHead title="로딩 중... - Plantgram" />
         <Header />
-        <main className="flex-1 page-container pt-16 md:pt-20">
+        <main className="flex-1 container mx-auto px-4 py-8 pt-16 md:pt-20">
           <LoadingSpinner message="포스트를 불러오는 중..." />
         </main>
         <Footer />
@@ -69,7 +69,7 @@ const PostDetail: React.FC = () => {
       <div className="min-h-screen bg-background flex flex-col">
         <SEOHead {...seoProps} />
         <Header />
-        <main className="flex-1 narrow-container py-8 pt-16 md:pt-20">
+        <main className="flex-1 container mx-auto px-4 py-8 pt-16 md:pt-20 max-w-2xl">
           <div className="mb-6">
             <Button
               variant="ghost"
@@ -112,7 +112,7 @@ const PostDetail: React.FC = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead {...seoProps} />
       <Header />
-      <main className="flex-1 narrow-container py-8 pt-16 md:pt-20">
+      <main className="flex-1 container mx-auto px-4 py-8 pt-16 md:pt-20 max-w-2xl">
         <div className="mb-6">
           <Button
             variant="ghost"
