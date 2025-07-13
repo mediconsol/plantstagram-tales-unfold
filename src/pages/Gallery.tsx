@@ -34,7 +34,7 @@ const Gallery: React.FC = () => {
       <div className="min-h-screen bg-background flex flex-col">
         <SEOHead {...SEOPresets.gallery} />
         <Header />
-        <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">
+        <div className="container mx-auto desktop-container section-spacing pt-16 md:pt-20 flex-1">
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-foreground mb-4">
               페이지를 불러오는 중 오류가 발생했습니다
@@ -149,7 +149,7 @@ const Gallery: React.FC = () => {
       <SEOHead {...SEOPresets.gallery} />
       <Header />
 
-      <div className="container mx-auto px-4 py-8 pt-16 md:pt-20 flex-1">
+      <div className="container mx-auto desktop-container section-spacing pt-16 md:pt-20 flex-1">
         {/* Page Header */}
         <div className="text-center mb-8 mt-12">
           <h1 className="text-4xl font-pretendard font-bold text-foreground mb-4">
@@ -281,7 +281,7 @@ const Gallery: React.FC = () => {
 // Grid View Component
 const GalleryGrid: React.FC<{ posts: PlantPost[]; onPostClick: (post: PlantPost) => void }> = ({ posts, onPostClick }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 posts-grid">
       {posts.map((post) => (
         <GalleryGridItem key={post.id} post={post} onClick={() => onPostClick(post)} />
       ))}

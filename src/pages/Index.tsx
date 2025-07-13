@@ -11,7 +11,7 @@ const Index = () => {
       <SEOHead {...SEOPresets.home} />
       <Header />
       <HeroSection />
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto desktop-container section-spacing">
         <PlantPostsFeed />
       </div>
       <ReflectionSection />

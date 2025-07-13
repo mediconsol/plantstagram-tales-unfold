@@ -273,4 +273,62 @@
     right: calc(env(safe-area-inset-right) + 1rem);
   }
 
+  /* 데스크탑 여백 최적화 시스템 */
+
+  /* 섹션간 여백 확대 */
+  .section-spacing {
+    padding-top: 3rem;    /* 48px - 모바일 기본 */
+    padding-bottom: 3rem; /* 48px */
+  }
+
+  @media (min-width: 768px) {
+    .section-spacing {
+      padding-top: 4rem;    /* 64px - 태블릿 */
+      padding-bottom: 4rem; /* 64px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-spacing {
+      padding-top: 6rem;    /* 96px - 데스크탑 */
+      padding-bottom: 6rem; /* 96px */
+    }
+  }
+
+  /* 컨테이너 좌우 여백 점진적 확대 */
+  .desktop-container {
+    padding-left: 1rem;   /* 16px - 모바일 */
+    padding-right: 1rem;  /* 16px */
+  }
+
+  @media (min-width: 768px) {
+    .desktop-container {
+      padding-left: 2rem;   /* 32px - 태블릿 */
+      padding-right: 2rem;  /* 32px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .desktop-container {
+      padding-left: 3rem;   /* 48px - 데스크탑 */
+      padding-right: 3rem;  /* 48px */
+    }
+  }
+
+  /* 포스트 그리드 간격 확대 */
+  .posts-grid {
+    gap: 1.5rem; /* 24px - 모바일 */
+  }
+
+  @media (min-width: 768px) {
+    .posts-grid {
+      gap: 2rem; /* 32px - 태블릿 */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .posts-grid {
+      gap: 3rem; /* 48px - 데스크탑 */
+    }
+  }
 }
