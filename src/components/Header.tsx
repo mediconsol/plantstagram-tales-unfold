@@ -179,8 +179,9 @@ export const Header: React.FC = () => {
                 </DropdownMenu>
               </div>
             ) : (
-              <Button 
+              <Button
                 onClick={() => setShowAuthModal(true)}
+                size="sm"
                 className="font-pretendard"
               >
                 로그인
