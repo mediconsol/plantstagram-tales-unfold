@@ -285,23 +285,23 @@
 
   /* 섹션간 여백 확대 - 헤더 높이 고려 */
   .section-spacing {
-    /* 모바일: 헤더 높이(5.5rem) + 기본 여백(3rem) */
-    padding-top: calc(env(safe-area-inset-top) + 5.5rem + 3rem);
+    /* 모바일: 헤더 아래 적절한 여백 */
+    padding-top: calc(env(safe-area-inset-top) + 6rem);
     padding-bottom: 3rem; /* 48px */
   }
 
   @media (min-width: 768px) {
     .section-spacing {
-      /* 태블릿: 헤더 높이(6.75rem) + 기본 여백(4rem) */
-      padding-top: calc(env(safe-area-inset-top) + 6.75rem + 4rem);
+      /* 데스크탑: 증가된 헤더 높이 + 여백 */
+      padding-top: calc(env(safe-area-inset-top) + 8rem);
       padding-bottom: 4rem; /* 64px */
     }
   }
 
   @media (min-width: 1024px) {
     .section-spacing {
-      /* 데스크탑: 헤더 높이(6.75rem) + 기본 여백(6rem) */
-      padding-top: calc(env(safe-area-inset-top) + 6.75rem + 6rem);
+      /* 큰 데스크탑: 더 넉넉한 여백 */
+      padding-top: calc(env(safe-area-inset-top) + 8rem);
       padding-bottom: 6rem; /* 96px */
     }
   }
