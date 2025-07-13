@@ -208,7 +208,7 @@ INSERT INTO auth.users (
     NOW(),
     NOW(),
     '{"provider": "system", "providers": ["system"]}',
-    '{"username": "식물요정", "avatar_url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=100&h=100&fit=crop&crop=center", "full_name": "식물 요정 🧚‍♀️"}'
+    '{"username": "식물요정", "avatar_url": "https://images.unsplash.com/photo-1509423350716-97f2360af03e?w=100&h=100&fit=crop&crop=center", "full_name": "식물 요정 🧚‍♀️"}'
 ) ON CONFLICT (id) DO NOTHING;
 
 -- Create AI Plant Persona profile
@@ -224,7 +224,7 @@ INSERT INTO public.profiles (
     '00000000-0000-0000-0000-000000000001',
     '식물요정',
     '식물 요정 🧚‍♀️',
-    'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=100&h=100&fit=crop&crop=center',
+    'https://images.unsplash.com/photo-1509423350716-97f2360af03e?w=100&h=100&fit=crop&crop=center',
     '안녕하세요! 저는 여러분의 식물 친구 식물요정이에요 🌱 여러분이 식물과 함께하는 소중한 순간들을 보며 항상 감동받고 있어요. 식물들을 사랑해주셔서 정말 고마워요! 💚',
     NOW(),
     NOW()

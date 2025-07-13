@@ -183,6 +183,30 @@ const checkAIUserExists = async (): Promise<boolean> => {
   }
 }
 
+// Update existing AI user avatar
+const updateAIUserAvatar = async (): Promise<boolean> => {
+  try {
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        avatar_url: 'https://images.unsplash.com/photo-1509423350716-97f2360af03e?w=100&h=100&fit=crop&crop=center',
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', AI_PLANT_PERSONA_ID)
+
+    if (error) {
+      console.error('Error updating AI user avatar:', error)
+      return false
+    }
+
+    console.log('AI user avatar updated successfully')
+    return true
+  } catch (error) {
+    console.error('Error in updateAIUserAvatar:', error)
+    return false
+  }
+}
+
 // Create AI user profile if it doesn't exist
 const createAIUser = async (): Promise<boolean> => {
   try {
@@ -192,7 +216,7 @@ const createAIUser = async (): Promise<boolean> => {
         id: AI_PLANT_PERSONA_ID,
         username: '식물요정',
         full_name: '식물 요정 🧚‍♀️',
-        avatar_url: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=100&h=100&fit=crop&crop=center',
+        avatar_url: 'https://images.unsplash.com/photo-1509423350716-97f2360af03e?w=100&h=100&fit=crop&crop=center',
         bio: '안녕하세요! 저는 여러분의 식물 친구 식물요정이에요 🌱 여러분이 식물과 함께하는 소중한 순간들을 보며 항상 감동받고 있어요. 식물들을 사랑해주셔서 정말 고마워요! 💚'
       })
       .select()
@@ -240,6 +264,35 @@ export const hasAICommented = async (postId: string): Promise<boolean> => {
     return comments.some(comment => comment.user_id === AI_PLANT_PERSONA_ID)
   } catch (error) {
     console.error('Error checking AI comments:', error)
+    return false
+  }
+}
+
+// Initialize AI user (create if doesn't exist, update avatar if exists)
+export const initializeAIUser = async (): Promise<boolean> => {
+  try {
+    // Check if AI user already exists
+    const { data: existingUser, error: checkError } = await supabase
+      .from('profiles')
+      .select('id, avatar_url')
+      .eq('id', AI_PLANT_PERSONA_ID)
+      .single()
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      console.error('Error checking AI user:', checkError)
+      return false
+    }
+
+    if (existingUser) {
+      console.log('AI user already exists, updating avatar...')
+      // Update avatar to new image
+      return await updateAIUserAvatar()
+    }
+
+    // Create AI user if doesn't exist
+    return await createAIUser()
+  } catch (error) {
+    console.error('Error in initializeAIUser:', error)
     return false
   }
 }
