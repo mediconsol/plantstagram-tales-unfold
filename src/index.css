@@ -288,15 +288,14 @@
     @media (min-width: 768px) {
       padding-left: 1rem;   /* 16px - 데스크톱 기본 */
       padding-right: 1rem;  /* 16px */
+      max-width: 780px;     /* 데스크톱 고정 너비 - 가독성 최적화 */
     }
 
-    /* 최대 너비 제한 */
-    max-width: 1200px;
-
-    /* 큰 화면에서 추가 여백 */
+    /* 큰 화면에서도 동일한 너비 유지 */
     @media (min-width: 1280px) {
       padding-left: 2rem;   /* 32px - 큰 화면에서 더 넉넉한 여백 */
       padding-right: 2rem;  /* 32px */
+      max-width: 780px;     /* 동일한 고정 너비 유지 */
     }
   }
 
@@ -309,13 +308,13 @@
     padding-right: 1.5rem;
     padding-top: calc(env(safe-area-inset-top) + 5.5rem + 3rem); /* safe area + 헤더 높이 + 여백 */
     padding-bottom: calc(env(safe-area-inset-bottom) + 3rem);    /* safe area + 하단 여백 */
-    max-width: 1200px;
   }
 
   @media (min-width: 768px) {
     .page-container {
       padding-left: 1rem;
       padding-right: 1rem;
+      max-width: 780px;     /* 데스크톱 고정 너비 */
     }
   }
 
@@ -323,6 +322,7 @@
     .page-container {
       padding-left: 2rem;
       padding-right: 2rem;
+      max-width: 780px;     /* 동일한 고정 너비 유지 */
     }
   }
 
@@ -333,13 +333,13 @@
     margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    max-width: 42rem; /* 672px - 읽기 최적화 너비 */
   }
 
   @media (min-width: 768px) {
     .narrow-container {
       padding-left: 1rem;
       padding-right: 1rem;
+      max-width: 600px;     /* 포스트 상세용 좁은 너비 */
     }
   }
 }
